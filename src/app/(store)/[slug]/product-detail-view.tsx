@@ -42,6 +42,9 @@ export function ProductDetailView({
   brand,
   categoryAncestors = [],
 }: ProductDetailViewProps) {
+  const hasLegacyTemplateBody = /Immersive Sound, Anywhere|Thoughtful Light for Your Workspace|The Perfect Everyday Tee/i.test(
+    product.body ?? ""
+  )
   const [selectedVariantId, setSelectedVariantId] = useState(
     product.variants[0]?.id ?? ""
   )
@@ -95,6 +98,14 @@ export function ProductDetailView({
       quantity,
     })
     openCart()
+    toast.success("Added to cart", {
+      description: product.name,
+      action: {
+        label: "View Cart",
+        onClick: openCart,
+      },
+      duration: 3000,
+    })
   }
 
   function handleToggleWishlist() {
@@ -185,7 +196,7 @@ export function ProductDetailView({
             <StarRating rating={product.rating} reviewCount={product.reviewCount} />
           </div>
 
-          <h1 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
+          <h1 className="mt-2 font-heading text-2xl font-semibold tracking-tight text-[#342a24] sm:text-3xl">
             {product.name}
           </h1>
 
@@ -199,7 +210,7 @@ export function ProductDetailView({
           )}
 
           <div className="mt-4 flex items-center gap-3">
-            <span className="text-2xl font-semibold">
+            <span className="text-2xl font-semibold text-[#42352d]">
               {formatPrice(selectedVariant.price, selectedVariant.currency)}
             </span>
             {isOnSale && (
@@ -255,7 +266,7 @@ export function ProductDetailView({
             </div>
             <Button
               size="lg"
-              className="w-full sm:flex-1"
+              className="w-full bg-[#42352d] text-white hover:bg-[#57463a] sm:flex-1"
               disabled={!inStock}
               onClick={handleAddToCart}
             >
@@ -277,7 +288,7 @@ export function ProductDetailView({
       </div>
 
       {/* Full HTML description (below gallery/add-to-cart) */}
-      {product.body && (
+      {product.body && !hasLegacyTemplateBody && (
         <section className="mt-16 border-t pt-12">
           <div className="mx-auto max-w-3xl">
             <div

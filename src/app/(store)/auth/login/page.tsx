@@ -8,24 +8,53 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { AuthCardLayout } from "@/components/auth/auth-card-layout"
 import { useAuthStore } from "@/store/auth"
+import { createClient } from "@/lib/supabase/client"
 import { toast } from "sonner"
 import { loginSchema } from "@/lib/validators"
 
 export default function LoginPage() {
   const router = useRouter()
   const login = useAuthStore((s) => s.login)
+  const setSupabaseUser = useAuthStore((s) => s.setSupabaseUser)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    const requestedPath = new URLSearchParams(window.location.search).get("next")
     const result = loginSchema.safeParse({ email, password })
     if (!result.success) {
       toast.error(result.error.issues[0].message)
       return
     }
     setLoading(true)
+
+    try {
+      const supabase = createClient()
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+
+      if (!error && data.user?.email) {
+        setSupabaseUser({ id: data.user.id, email: data.user.email })
+        toast.success("Welcome back!")
+        const destination =
+          requestedPath?.startsWith("/") && !requestedPath.startsWith("//")
+            ? requestedPath
+            : "/account"
+        router.push(destination)
+        setLoading(false)
+        return
+      }
+    } catch {
+      // Demo sign-in remains available if Supabase auth is not configured.
+    }
+
+    if (requestedPath === "/checkout" || requestedPath?.startsWith("/checkout/")) {
+      toast.error("Sign in with your Supabase account to place an order.")
+      setLoading(false)
+      return
+    }
+
     const success = login(email, password)
     if (success) {
       toast.success("Welcome back!")

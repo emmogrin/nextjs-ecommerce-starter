@@ -26,7 +26,7 @@ export default function AccountPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
       <PageHeader title="My Account" description={`Welcome back, ${user?.firstName}!`}>
-        <Button variant="outline" onClick={() => { logout(); router.push("/") }}>
+        <Button variant="outline" onClick={async () => { await logout(); router.push("/") }}>
           <LogOut className="mr-2 h-4 w-4" />
           Sign Out
         </Button>

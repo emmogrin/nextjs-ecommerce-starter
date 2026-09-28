@@ -1,14 +1,14 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Shipping Policy",
-  description: "Learn about our shipping options, rates, and delivery times.",
+  title: "Delivery Policy",
+  description: "Learn about our delivery options, rates, and estimated arrival times.",
 }
 
 export default function ShippingPolicyPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold tracking-tight">Shipping Policy</h1>
+      <h1 className="text-3xl font-bold tracking-tight">Delivery Policy</h1>
       <div className="mt-8 space-y-6 text-muted-foreground">
         <h2 className="text-xl font-semibold text-foreground">
           Domestic Shipping

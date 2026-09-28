@@ -3,14 +3,16 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 import type { User, Address } from "@/types"
+import { createClient } from "@/lib/supabase/client"
 
 interface AuthState {
   user: User | null
   isAuthenticated: boolean
 
   login: (email: string, password: string) => boolean
+  setSupabaseUser: (user: { id: string; email: string }) => void
   register: (data: { firstName: string; lastName: string; email: string; password: string }) => boolean
-  logout: () => void
+  logout: () => Promise<void>
   updateProfile: (data: Partial<Pick<User, "firstName" | "lastName" | "email">>) => void
   addAddress: (address: Omit<Address, "id">) => void
   removeAddress: (id: string) => void
@@ -73,6 +75,24 @@ export const useAuthStore = create<AuthState>()(
         return false
       },
 
+      setSupabaseUser: (authUser) => {
+        const now = new Date().toISOString()
+        set({
+          user: {
+            id: authUser.id,
+            email: authUser.email,
+            firstName: authUser.email.split("@")[0],
+            lastName: "",
+            // Client state is never the source of admin authorization.
+            role: "customer",
+            addresses: [],
+            createdAt: now,
+            updatedAt: now,
+          },
+          isAuthenticated: true,
+        })
+      },
+
       register: (data) => {
         const exists = DEMO_USERS.some((u) => u.email === data.email)
         if (exists) return false
@@ -92,7 +112,14 @@ export const useAuthStore = create<AuthState>()(
         return true
       },
 
-      logout: () => set({ user: null, isAuthenticated: false }),
+      logout: async () => {
+        try {
+          const supabase = createClient()
+          await supabase.auth.signOut()
+        } finally {
+          set({ user: null, isAuthenticated: false })
+        }
+      },
 
       updateProfile: (data) => {
         const user = get().user

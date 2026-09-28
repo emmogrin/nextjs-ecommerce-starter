@@ -52,7 +52,7 @@
     "accountMenu": "Account menu"
   },
   "home": {
-    "freeShipping": "Free shipping on orders over {threshold}",
+    "freeShipping": "Free delivery on orders over {threshold}",
     "shopByCategory": "Shop by Category",
     "featuredProducts": "Featured Products",
     "joinNewsletter": "Join our newsletter",
@@ -75,7 +75,7 @@
     "addToWishlist": "Add to wishlist",
     "removeFromWishlist": "Remove from wishlist",
     "youMayAlsoLike": "You may also like",
-    "freeShipping": "Free shipping on orders over {threshold}",
+    "freeShipping": "Free delivery on orders over {threshold}",
     "hassleReturns": "30-day hassle-free returns",
     "secureCheckout": "Secure checkout",
     "decreaseQuantity": "Decrease quantity",

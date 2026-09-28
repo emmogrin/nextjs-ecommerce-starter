@@ -5,20 +5,20 @@
 
 export const siteConfig = {
   // Branding
-  name: "Next.js Ecommerce Starter",
-  tagline: "A free, open-source Next.js ecommerce template.",
+  name: "Radiant Identity",
+  tagline: "Reveal your radiant identity.",
   description:
     "A free, production-ready Next.js ecommerce starter template built with Tailwind CSS and shadcn/ui. Responsive, accessible, SEO optimized, and ready to connect to any checkout system. Built by Epic Design Labs.",
 
   // Announcement bar (set to "" to hide)
-  announcement: "Free shipping on all orders over $75 — Shop now!",
+  announcement: "",
 
   // URLs
   url: process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000",
 
   // Contact
   contact: {
-    email: "support@epicdesignlabs.com",
+    email: "yourradiantidentity@gmail.com",
     phone: "",
     address: {
       street: "",
@@ -31,20 +31,20 @@ export const siteConfig = {
 
   // Social links (set to "" to hide)
   social: {
-    twitter: "https://x.com/epicdesignlabs",
-    instagram: "https://instagram.com/epicdesignlabs",
-    facebook: "https://facebook.com/epicdesignlabs",
+    twitter: "",
+    instagram: "https://www.instagram.com/theradiantgirly?stkn=Z3RocTc0bTRscmc2&utm_source=qr",
+    facebook: "",
     youtube: "",
-    tiktok: "",
+    tiktok: "https://www.tiktok.com/@_theradiantgirly?_r=1&_t=ZS-9A58iM7S5XV",
   },
 
   // Shipping
-  freeShippingThreshold: 7500, // in cents ($75.00)
+  freeShippingThreshold: 30000000, // in kobo (300,000)
   taxRate: 0.08, // 8%
 
   // Currency & locale
-  currency: "USD",
-  locale: "en-US",
+  currency: "NGN",
+  locale: "en-NG",
 
   // Legal
   copyrightYear: new Date().getFullYear(),

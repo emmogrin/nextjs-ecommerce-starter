@@ -8,9 +8,6 @@ import { StarRating } from "@/components/products/star-rating"
 import { formatPrice } from "@/lib/utils"
 import { PLACEHOLDER_IMAGE } from "@/lib/constants"
 import type { Product } from "@/types"
-import data from "@/data/products.json"
-
-const allProducts = data.products as Product[]
 
 const popularSearches = [
   "Headphones",
@@ -28,18 +25,48 @@ interface SearchModalProps {
 
 export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("")
+  const [results, setResults] = useState<Product[]>([])
+  const [isSearching, setIsSearching] = useState(false)
+  const [searchError, setSearchError] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const modalRef = useRef<HTMLDivElement>(null)
 
-  const results = query.trim().length > 0
-    ? allProducts.filter(
-        (p) =>
-          p.status === "active" &&
-          (p.name.toLowerCase().includes(query.toLowerCase()) ||
-            p.description.toLowerCase().includes(query.toLowerCase()) ||
-            p.tags.some((t) => t.toLowerCase().includes(query.toLowerCase())))
-      ).slice(0, 6)
-    : []
+  useEffect(() => {
+    const searchQuery = query.trim()
+    if (!isOpen || searchQuery.length < 2) {
+      setResults([])
+      setIsSearching(false)
+      setSearchError(false)
+      return
+    }
+
+    const controller = new AbortController()
+    setResults([])
+    setIsSearching(true)
+    setSearchError(false)
+    const timeout = window.setTimeout(async () => {
+      try {
+        const params = new URLSearchParams({ q: searchQuery })
+        const response = await fetch(`/api/catalog/search?${params}`, {
+          signal: controller.signal,
+        })
+        if (!response.ok) throw new Error("Catalog search failed")
+        const data = (await response.json()) as { items: Product[] }
+        setResults(data.items)
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") return
+        setResults([])
+        setSearchError(true)
+      } finally {
+        if (!controller.signal.aborted) setIsSearching(false)
+      }
+    }, 250)
+
+    return () => {
+      window.clearTimeout(timeout)
+      controller.abort()
+    }
+  }, [isOpen, query])
 
   const handleClose = useCallback(() => {
     setQuery("")
@@ -174,10 +201,20 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
               </div>
             )}
 
-            {hasQuery && results.length === 0 && (
+            {hasQuery && isSearching && (
+              <div className="px-4 py-12 text-center" role="status">
+                <p className="text-sm text-muted-foreground">Searching products…</p>
+              </div>
+            )}
+
+            {hasQuery && !isSearching && results.length === 0 && (
               <div className="px-4 py-12 text-center">
                 <p className="text-sm text-muted-foreground">
-                  No results for &quot;{query}&quot;
+                  {searchError
+                    ? "Search is temporarily unavailable. Please try again."
+                    : query.trim().length < 2
+                      ? "Type at least 2 characters to search."
+                      : `No results for “${query}”`}
                 </p>
               </div>
             )}

@@ -6,27 +6,9 @@ import { CategoryView } from "./category-view"
 import { BrandView } from "./brand-view"
 import { formatPrice } from "@/lib/utils"
 import { siteConfig } from "@/lib/config"
-import data from "@/data/products.json"
 
 interface SlugPageProps {
   params: Promise<{ slug: string }>
-}
-
-// Only render slugs returned by generateStaticParams — any other slug
-// automatically gets a proper 404 response. Rebuild/redeploy to pick
-// up new products, categories, or brands.
-export const dynamicParams = false
-
-export async function generateStaticParams() {
-  const productSlugs = data.products
-    .filter((p) => p.status === "active")
-    .map((p) => ({ slug: p.slug }))
-  const categorySlugs = data.categories.map((c) => ({ slug: c.slug }))
-  const brandSlugs = (data as { brands?: { slug: string }[] }).brands?.map(
-    (b) => ({ slug: b.slug })
-  ) ?? []
-
-  return [...productSlugs, ...categorySlugs, ...brandSlugs]
 }
 
 export async function generateMetadata({

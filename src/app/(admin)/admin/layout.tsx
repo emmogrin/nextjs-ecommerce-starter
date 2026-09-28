@@ -1,25 +1,34 @@
-"use client"
-
 import Link from "next/link"
-import { LayoutDashboard, Package, Users } from "lucide-react"
-import { useAuthGuard } from "@/hooks/use-auth-guard"
+import { redirect } from "next/navigation"
+import { Boxes, LayoutDashboard, Package, Tag, Users } from "lucide-react"
+import { createClient } from "@/lib/supabase/server"
 
 const adminNav = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { name: "Products", href: "/admin/products", icon: Boxes },
+  { name: "Brands", href: "/admin/brands", icon: Tag },
   { name: "Orders", href: "/admin/orders", icon: Package },
   { name: "Customers", href: "/admin/customers", icon: Users },
 ]
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const { user, isReady } = useAuthGuard()
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
 
-  if (!isReady) return null
+  if (!user) redirect("/auth/login?next=%2Fadmin")
 
-  if (user?.role !== "admin") {
+  const { data: adminRole, error } = await supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", user.id)
+    .eq("role", "admin")
+    .maybeSingle()
+
+  if (error || adminRole?.role !== "admin") {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">

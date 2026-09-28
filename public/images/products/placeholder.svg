@@ -1,3 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
-  <rect width="800" height="800" fill="#e5e5e5"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" fill="none">
+  <defs>
+    <linearGradient id="ground" x1="90" y1="54" x2="720" y2="758" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8F3EC"/>
+      <stop offset="1" stop-color="#E9DDD0"/>
+    </linearGradient>
+    <linearGradient id="vessel" x1="318" y1="247" x2="516" y2="650" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FCFAF6"/>
+      <stop offset="1" stop-color="#D9C7B4"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="180" y1="210" x2="332" y2="484" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9AA58B"/>
+      <stop offset="1" stop-color="#697760"/>
+    </linearGradient>
+    <filter id="shadow" x="202" y="478" width="430" height="163" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="17"/>
+    </filter>
+  </defs>
+  <rect width="800" height="800" rx="8" fill="url(#ground)"/>
+  <circle cx="400" cy="358" r="239" fill="#FFFDF9" fill-opacity=".42"/>
+  <circle cx="400" cy="358" r="202" stroke="#C9B9A7" stroke-opacity=".42" stroke-width="2"/>
+  <ellipse cx="418" cy="565" rx="198" ry="37" fill="#796653" fill-opacity=".2" filter="url(#shadow)"/>
+  <path d="M213 573c55-23 115-33 187-33 75 0 137 10 187 33v49H213v-49Z" fill="#D9C8B6"/>
+  <path d="M213 573c57-19 119-28 187-28 68 0 130 9 187 28" stroke="#F7F0E8" stroke-width="4"/>
+  <path d="M305 363c-67-26-110-83-116-153 66 14 116 69 116 153Z" fill="url(#leaf)"/>
+  <path d="M312 406c-68 1-122-34-148-94 66-6 124 31 148 94Z" fill="#87937B"/>
+  <path d="M302 476c-52-23-82-65-86-119 52 12 88 55 86 119Z" fill="#A2A88D"/>
+  <path d="M304 494c-6-106-39-194-101-268" stroke="#697760" stroke-width="4" stroke-linecap="round"/>
+  <path d="M496 398c43-48 91-65 144-51-25 53-73 78-144 72" fill="#A9AF98"/>
+  <path d="M502 434c43-37 86-45 130-23-33 43-77 56-132 42" fill="#7F8D73"/>
+  <path d="M505 450c26-66 67-119 128-160" stroke="#697760" stroke-width="4" stroke-linecap="round"/>
+  <path d="M355 306c0-20 16-36 36-36h36c20 0 36 16 36 36v24H355v-24Z" fill="#BEA990"/>
+  <path d="M368 270v-20c0-11 9-20 20-20h42c11 0 20 9 20 20v20" stroke="#9B846E" stroke-width="6"/>
+  <path d="M341 330h136l23 204c4 34-22 64-57 64h-68c-35 0-61-30-57-64l23-204Z" fill="url(#vessel)" stroke="#B7A38E" stroke-width="4"/>
+  <path d="M354 411h110v71H354z" fill="#F7F1E8" fill-opacity=".72"/>
+  <path d="M381 439h56M393 455h32" stroke="#B8A590" stroke-width="4" stroke-linecap="round"/>
+  <path d="m555 260 7 18 18 7-18 7-7 18-7-18-18-7 18-7 7-18Z" fill="#B89466" fill-opacity=".76"/>
+  <path d="m249 300 4 11 11 4-11 4-4 11-4-11-11-4 11-4 4-11Z" fill="#B89466" fill-opacity=".58"/>
+  <path d="M334 681h132" stroke="#A9927D" stroke-opacity=".56" stroke-width="2" stroke-linecap="round"/>
 </svg>

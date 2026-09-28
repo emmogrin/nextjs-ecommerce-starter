@@ -24,9 +24,9 @@ export function StarRating({ rating, reviewCount, size = "default" }: StarRating
               className={cn(
                 starSize,
                 filled
-                  ? "fill-rating text-rating"
+                  ? "fill-[#b28a55] text-[#b28a55]"
                   : half
-                    ? "fill-rating/50 text-rating"
+                    ? "fill-[#b28a55]/50 text-[#b28a55]"
                     : "fill-none text-neutral-300"
               )}
             />

@@ -5,11 +5,19 @@ import { redirects as redirectRules } from "./src/lib/redirects";
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "12mb",
+    },
+  },
   images: {
-    // Add remote image domains here when using real product images
-    // remotePatterns: [
-    //   { protocol: "https", hostname: "cdn.example.com" },
-    // ],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "pxtselstfnwavgbciuku.supabase.co",
+        pathname: "/storage/v1/object/public/product-images/**",
+      },
+    ],
   },
 
   // Redirects are defined in src/lib/redirects.ts — edit there.

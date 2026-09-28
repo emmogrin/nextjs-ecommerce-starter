@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
+import { updateSession } from "@/lib/supabase/proxy"
 
-export function middleware(request: NextRequest) {
-  const response = NextResponse.next()
+export async function proxy(request: NextRequest) {
+  const response = await updateSession(request)
 
   // Security headers
   response.headers.set("X-Frame-Options", "DENY")

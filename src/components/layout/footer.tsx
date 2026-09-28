@@ -56,7 +56,7 @@ const footerLinks = {
     { name: "FAQ", href: "/faq" },
   ],
   legal: [
-    { name: "Shipping Policy", href: "/policies/shipping" },
+    { name: "Delivery Policy", href: "/policies/shipping" },
     { name: "Returns & Refunds", href: "/policies/returns" },
     { name: "Privacy Policy", href: "/policies/privacy" },
     { name: "Terms of Service", href: "/policies/terms" },
@@ -136,14 +136,15 @@ export function Footer() {
           <p className="text-xs text-muted-foreground">
             &copy; {siteConfig.copyrightYear} {siteConfig.name}. All rights reserved.
             <br className="sm:hidden" />
-            {" "}Design by{" "}
+            {" "}Designed with ♥ by{" "}
             <a
-              href="https://epicdesignlabs.com"
+              href="https://x.com/admirkhen"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
+              aria-label="Saint Khen on X (opens in a new tab)"
               className="underline hover:text-foreground"
             >
-              Epic Design Labs
+              Saint Khen
             </a>
           </p>
           <div className="flex items-center gap-4">

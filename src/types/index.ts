@@ -67,8 +67,8 @@ export interface ProductVariant {
   productId: string
   sku: string
   name: string
-  price: number // in cents
-  compareAtPrice?: number // original price for sale display
+  price: number // integer minor units
+  compareAtPrice?: number // original price in integer minor units for sale display
   currency: string
   inventory: VariantInventory
   options: ProductOption[]
@@ -154,8 +154,8 @@ export type PaymentStatus =
 
 export interface OrderLineItem {
   id: string
-  productId: string
-  variantId: string
+  productId?: string
+  variantId?: string
   name: string
   variantName: string
   sku: string
@@ -176,6 +176,7 @@ export interface Order {
   tax: number
   shipping: number
   total: number
+  /** ISO currency. Database-backed Radiant Identity orders use NGN. */
   currency: string
   shippingAddress: Address
   billingAddress?: Address
@@ -360,6 +361,15 @@ export interface CategoryRepository {
   list(): Promise<Category[]>
   getBySlug(slug: string): Promise<Category | null>
   getById(id: string): Promise<Category | null>
+  getChildren(parentId: string): Promise<Category[]>
+  getTopLevel(): Promise<Category[]>
+  getAncestors(categoryId: string): Promise<Category[]>
+}
+
+export interface BrandRepository {
+  list(): Promise<Brand[]>
+  getBySlug(slug: string): Promise<Brand | null>
+  getById(id: string): Promise<Brand | null>
 }
 
 export interface OrderRepository {
@@ -368,6 +378,17 @@ export interface OrderRepository {
     pagination?: PaginationParams
   ): Promise<PaginatedResult<Order>>
   getById(id: string): Promise<Order | null>
-  create(order: Omit<Order, "id" | "createdAt" | "updatedAt">): Promise<Order>
-  updateStatus(id: string, status: OrderStatus): Promise<Order>
+  create(input: CreateOrderInput): Promise<{ id: string; orderNumber: string }>
+  updateStatus(
+    id: string,
+    status: OrderStatus,
+    paymentStatus?: PaymentStatus
+  ): Promise<Order>
+}
+
+/** Client-submitted order data. Prices and totals are deliberately absent. */
+export interface CreateOrderInput {
+  items: Array<{ variantId: string; quantity: number }>
+  shippingAddress: Omit<Address, "id" | "type" | "isDefault">
+  billingAddress?: Omit<Address, "id" | "type" | "isDefault">
 }

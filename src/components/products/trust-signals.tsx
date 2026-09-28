@@ -7,7 +7,7 @@ export function TrustSignals() {
     <div className="space-y-3">
       <div className="flex items-center gap-3 text-sm text-muted-foreground">
         <Truck className="h-4 w-4" />
-        <span>Free shipping on orders over {formatPrice(siteConfig.freeShippingThreshold)}</span>
+        <span>Free delivery on orders over {formatPrice(siteConfig.freeShippingThreshold)}</span>
       </div>
       <div className="flex items-center gap-3 text-sm text-muted-foreground">
         <RotateCcw className="h-4 w-4" />

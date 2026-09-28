@@ -34,7 +34,7 @@ export function Header({ categories = [] }: HeaderProps) {
   const [searchOpen, setSearchOpen] = useState(false)
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null)
   const openCart = useCartStore((s) => s.openCart)
-  const getItemCount = useCartStore((s) => s.getItemCount)
+  const cartItems = useCartStore((s) => s.items)
   const user = useAuthStore((s) => s.user)
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
   const logout = useAuthStore((s) => s.logout)
@@ -42,7 +42,9 @@ export function Header({ categories = [] }: HeaderProps) {
 
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
-  const itemCount = mounted ? getItemCount() : 0
+  const itemCount = mounted
+    ? cartItems.reduce((total, item) => total + item.quantity, 0)
+    : 0
 
   // Cmd+K / Ctrl+K to open search
   useEffect(() => {
@@ -58,12 +60,12 @@ export function Header({ categories = [] }: HeaderProps) {
 
   return (
     <>
-    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-      <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 w-full border-b border-[#eee8e1] bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
+      <div className="mx-auto flex h-[4.5rem] max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Mobile menu */}
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger
-            className="inline-flex items-center justify-center rounded-md p-2 text-foreground/60 hover:bg-accent hover:text-foreground lg:hidden"
+            className="inline-flex items-center justify-center rounded-md p-2 text-foreground/65 transition-colors hover:bg-[#f6f1ea] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring lg:hidden"
             aria-label={t("openMenu")}
             aria-expanded={mobileMenuOpen}
           >
@@ -142,17 +144,17 @@ export function Header({ categories = [] }: HeaderProps) {
         </Sheet>
 
         {/* Logo */}
-        <Link href="/" className="text-xl font-semibold tracking-tight">
+        <Link href="/" className="text-lg font-semibold tracking-[0.035em] text-[#342a24] sm:text-xl">
           {siteConfig.name}
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex lg:gap-6">
+        <nav className="hidden lg:flex lg:gap-8">
           {shopLinks.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="text-sm font-medium text-foreground transition-colors hover:text-foreground/70"
+              className="text-[13px] font-medium tracking-wide text-foreground/80 transition-colors hover:text-[#8a6e55] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {item.name}
             </Link>
@@ -163,15 +165,15 @@ export function Header({ categories = [] }: HeaderProps) {
         <div className="flex items-center">
           <button
             onClick={() => setSearchOpen(true)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-accent"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground/70 transition-colors hover:bg-[#f6f1ea] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             aria-label={t("searchProducts")}
           >
-            <Search className="h-5 w-5" />
+            <Search className="h-[18px] w-[18px]" />
           </button>
 
           <Link
             href="/wishlist"
-            className="hidden h-10 w-10 items-center justify-center rounded-md hover:bg-accent lg:inline-flex"
+            className="hidden h-10 w-10 items-center justify-center rounded-full text-foreground/70 transition-colors hover:bg-[#f6f1ea] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring lg:inline-flex"
             aria-label={t("wishlist")}
           >
             <Heart className="h-5 w-5" />
@@ -181,7 +183,7 @@ export function Header({ categories = [] }: HeaderProps) {
           {mounted && isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger
-                className="hidden h-10 w-10 items-center justify-center rounded-md hover:bg-accent lg:inline-flex"
+                className="hidden h-10 w-10 items-center justify-center rounded-full text-foreground/70 transition-colors hover:bg-[#f6f1ea] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring lg:inline-flex"
                 aria-label={t("accountMenu")}
               >
                 <div className="flex h-7 w-7 items-center justify-center rounded-full bg-foreground text-xs font-medium text-background">
@@ -204,7 +206,7 @@ export function Header({ categories = [] }: HeaderProps) {
                   Settings
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => { logout(); router.push("/") }}>
+                <DropdownMenuItem onClick={async () => { await logout(); router.push("/") }}>
                   <LogOut className="mr-2 h-4 w-4" />
                   {tCommon("signOut")}
                 </DropdownMenuItem>
@@ -213,7 +215,7 @@ export function Header({ categories = [] }: HeaderProps) {
           ) : (
             <Link
               href="/auth/login"
-              className="hidden h-10 w-10 items-center justify-center rounded-md hover:bg-accent lg:inline-flex"
+              className="hidden h-10 w-10 items-center justify-center rounded-full text-foreground/70 transition-colors hover:bg-[#f6f1ea] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring lg:inline-flex"
               aria-label={tCommon("signIn")}
             >
               <User className="h-5 w-5" />
@@ -223,18 +225,18 @@ export function Header({ categories = [] }: HeaderProps) {
           {/* Cart */}
           <button
             onClick={openCart}
-            className="relative inline-flex h-10 w-10 items-center justify-center rounded-md hover:bg-accent"
-            aria-label={t("openCart")}
+            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full text-foreground/70 transition-colors hover:bg-[#f6f1ea] hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            aria-label={`${t("openCart")}${itemCount > 0 ? `, ${itemCount} ${itemCount === 1 ? "item" : "items"}` : ""}`}
           >
-            <ShoppingBag className="h-5 w-5" />
+            <ShoppingBag className="h-[18px] w-[18px]" />
             {itemCount > 0 && (
               <span
-                className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-foreground text-[10px] font-medium text-background"
+                className="absolute -top-0.5 -right-0.5 flex min-h-4 min-w-4 items-center justify-center rounded-full bg-foreground px-1 text-[10px] font-medium text-background"
                 aria-live="polite"
                 aria-atomic="true"
                 aria-label={`${itemCount} ${itemCount === 1 ? "item" : "items"} in cart`}
               >
-                {itemCount > 9 ? "9+" : itemCount}
+                {itemCount}
               </span>
             )}
           </button>

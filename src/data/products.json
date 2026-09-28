@@ -2,8 +2,8 @@
   "categories": [
     {
       "id": "cat-1",
-      "name": "Electronics",
-      "slug": "electronics",
+      "name": "Skincare",
+      "slug": "skincare",
       "description": "Headphones, speakers, and everyday tech essentials. Built to last and designed to sound great wherever you go.",
       "image": {
         "url": "/images/products/placeholder.svg",
@@ -13,8 +13,8 @@
     },
     {
       "id": "cat-2",
-      "name": "Clothing",
-      "slug": "clothing",
+      "name": "Body Care",
+      "slug": "body-care",
       "description": "Comfortable, well-made basics for every day. Organic fabrics and relaxed fits that look good and feel even better.",
       "image": {
         "url": "/images/products/placeholder.svg",
@@ -24,8 +24,8 @@
     },
     {
       "id": "cat-3",
-      "name": "Home & Kitchen",
-      "slug": "home-kitchen",
+      "name": "Hair Care",
+      "slug": "hair-care",
       "description": "Thoughtful pieces for your living space. From lighting to textiles, everything you need to make a house feel like home.",
       "image": {
         "url": "/images/products/placeholder.svg",
@@ -35,8 +35,8 @@
     },
     {
       "id": "cat-4",
-      "name": "Accessories",
-      "slug": "accessories",
+      "name": "Makeup",
+      "slug": "makeup",
       "description": "Bags, wallets, and everyday carry. Crafted from premium materials that age beautifully with use.",
       "image": {
         "url": "/images/products/placeholder.svg",
@@ -46,8 +46,8 @@
     },
     {
       "id": "cat-6",
-      "name": "Food & Drink",
-      "slug": "food-drink",
+      "name": "Fragrance",
+      "slug": "fragrance",
       "description": "Coffee, tea, and specialty treats. Sourced from small producers who care about quality and sustainability.",
       "image": {
         "url": "/images/products/placeholder.svg",
@@ -57,24 +57,24 @@
     },
     {
       "id": "cat-1-1",
-      "name": "Headphones",
-      "slug": "headphones",
+      "name": "Cleansers",
+      "slug": "cleansers",
       "description": "Over-ear, on-ear, and in-ear headphones for every listening style. From noise-cancelling to open-back, find your perfect pair.",
       "parentId": "cat-1",
       "order": 1
     },
     {
       "id": "cat-1-2",
-      "name": "Speakers",
-      "slug": "speakers",
+      "name": "Serums",
+      "slug": "serums",
       "description": "Portable and desktop speakers that deliver rich, room-filling sound. Built for home, travel, and everywhere in between.",
       "parentId": "cat-1",
       "order": 2
     },
     {
       "id": "cat-1-3",
-      "name": "Chargers & Accessories",
-      "slug": "chargers-accessories",
+      "name": "Moisturizers",
+      "slug": "moisturizers",
       "description": "Wireless chargers, cables, and tech accessories to keep your devices powered and organized.",
       "parentId": "cat-1",
       "order": 3
@@ -83,18 +83,18 @@
   "products": [
     {
       "id": "prod-1",
-      "name": "Wireless Over-Ear Headphones",
-      "slug": "wireless-over-ear-headphones",
-      "description": "Premium wireless headphones with active noise cancellation, 30-hour battery life, and ultra-comfortable memory foam ear cushions.",
+      "name": "Radiant Gentle Face Cleanser",
+      "slug": "radiant-gentle-face-cleanser",
+      "description": "A gentle daily cleanser that removes makeup, sunscreen, and impurities without stripping skin.",
       "images": [
         {
-          "url": "/images/products/placeholder.svg",
+          "url": "/images/products/radiant-cleanser.jpg",
           "alt": "Wireless headphones front view",
           "width": 800,
           "height": 800
         },
         {
-          "url": "/images/products/placeholder.svg",
+          "url": "/images/products/radiant-cleanser.jpg",
           "alt": "Wireless headphones side view",
           "width": 800,
           "height": 800
@@ -114,11 +114,11 @@
         {
           "id": "var-1-1",
           "productId": "prod-1",
-          "sku": "WH-BLK-001",
-          "name": "Black",
-          "price": 7999,
-          "compareAtPrice": 9999,
-          "currency": "USD",
+          "sku": "RGFC-100",
+          "name": "100 ml",
+          "price": 800000,
+          "compareAtPrice": 1000000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 50,
             "trackInventory": true,
@@ -126,8 +126,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Black"
+              "name": "Size",
+              "value": "100 ml"
             }
           ],
           "images": []
@@ -135,11 +135,11 @@
         {
           "id": "var-1-2",
           "productId": "prod-1",
-          "sku": "WH-WHT-001",
-          "name": "White",
-          "price": 7999,
-          "compareAtPrice": 9999,
-          "currency": "USD",
+          "sku": "RGFC-200",
+          "name": "200 ml",
+          "price": 800000,
+          "compareAtPrice": 1000000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 35,
             "trackInventory": true,
@@ -147,8 +147,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "White"
+              "name": "Size",
+              "value": "200 ml"
             }
           ],
           "images": []
@@ -164,9 +164,9 @@
     },
     {
       "id": "prod-2",
-      "name": "Minimalist Desk Lamp",
-      "slug": "minimalist-desk-lamp",
-      "description": "A clean, adjustable LED desk lamp with three brightness levels and a warm-to-cool color temperature dial. Solid aluminum construction.",
+      "name": "Dewdrop Hydrating Serum",
+      "slug": "dewdrop-hydrating-serum",
+      "description": "A lightweight serum that layers easily to leave skin feeling hydrated, smooth, and refreshed.",
       "images": [
         {
           "url": "/images/products/placeholder.svg",
@@ -177,7 +177,8 @@
       ],
       "status": "active",
       "categoryIds": [
-        "cat-3"
+        "cat-1",
+        "cat-1-2"
       ],
       "tags": [
         "lighting",
@@ -188,10 +189,10 @@
         {
           "id": "var-2-1",
           "productId": "prod-2",
-          "sku": "DL-SLV-001",
-          "name": "Silver",
-          "price": 4500,
-          "currency": "USD",
+          "sku": "DHS-30",
+          "name": "30 ml",
+          "price": 1250000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 25,
             "trackInventory": true,
@@ -199,8 +200,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Silver"
+              "name": "Size",
+              "value": "30 ml"
             }
           ],
           "images": []
@@ -208,10 +209,10 @@
         {
           "id": "var-2-2",
           "productId": "prod-2",
-          "sku": "DL-BLK-001",
-          "name": "Matte Black",
-          "price": 4500,
-          "currency": "USD",
+          "sku": "DHS-50",
+          "name": "50 ml",
+          "price": 1250000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 18,
             "trackInventory": true,
@@ -219,8 +220,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Matte Black"
+              "name": "Size",
+              "value": "50 ml"
             }
           ],
           "images": []
@@ -236,9 +237,9 @@
     },
     {
       "id": "prod-3",
-      "name": "Organic Cotton T-Shirt",
-      "slug": "organic-cotton-tshirt",
-      "description": "Heavyweight 100% organic cotton tee with a relaxed fit. Pre-shrunk and garment-dyed for a lived-in feel from day one.",
+      "name": "Cloudsoft Body Lotion",
+      "slug": "cloudsoft-body-lotion",
+      "description": "A fast-absorbing body lotion that softens dry skin with a comfortable, non-greasy finish.",
       "images": [
         {
           "url": "/images/products/placeholder.svg",
@@ -260,10 +261,10 @@
         {
           "id": "var-3-1",
           "productId": "prod-3",
-          "sku": "TS-WHT-S",
-          "name": "White / S",
-          "price": 2999,
-          "currency": "USD",
+          "sku": "CBL-250",
+          "name": "250 ml",
+          "price": 850000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 100,
             "trackInventory": true,
@@ -271,12 +272,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "White"
-            },
-            {
               "name": "Size",
-              "value": "S"
+              "value": "250 ml"
             }
           ],
           "images": []
@@ -284,10 +281,10 @@
         {
           "id": "var-3-2",
           "productId": "prod-3",
-          "sku": "TS-WHT-M",
-          "name": "White / M",
-          "price": 2999,
-          "currency": "USD",
+          "sku": "CBL-400",
+          "name": "400 ml",
+          "price": 850000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 80,
             "trackInventory": true,
@@ -295,12 +292,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "White"
-            },
-            {
               "name": "Size",
-              "value": "M"
+              "value": "400 ml"
             }
           ],
           "images": []
@@ -308,10 +301,10 @@
         {
           "id": "var-3-3",
           "productId": "prod-3",
-          "sku": "TS-WHT-L",
-          "name": "White / L",
-          "price": 2999,
-          "currency": "USD",
+          "sku": "CBL-250-RF",
+          "name": "250 ml Refill",
+          "price": 850000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 60,
             "trackInventory": true,
@@ -319,12 +312,12 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "White"
+              "name": "Size",
+              "value": "250 ml"
             },
             {
-              "name": "Size",
-              "value": "L"
+              "name": "Format",
+              "value": "Refill"
             }
           ],
           "images": []
@@ -332,10 +325,10 @@
         {
           "id": "var-3-4",
           "productId": "prod-3",
-          "sku": "TS-BLK-M",
-          "name": "Black / M",
-          "price": 2999,
-          "currency": "USD",
+          "sku": "CBL-400-RF",
+          "name": "400 ml Refill",
+          "price": 850000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 70,
             "trackInventory": true,
@@ -343,12 +336,12 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Black"
+              "name": "Size",
+              "value": "400 ml"
             },
             {
-              "name": "Size",
-              "value": "M"
+              "name": "Format",
+              "value": "Refill"
             }
           ],
           "images": []
@@ -364,9 +357,9 @@
     },
     {
       "id": "prod-4",
-      "name": "Ceramic Pour-Over Coffee Maker",
-      "slug": "ceramic-pour-over",
-      "description": "Handcrafted ceramic dripper with a walnut wood collar. Brews a clean, bright cup. Includes a reusable stainless steel filter.",
+      "name": "Daily Dew Moisturizer",
+      "slug": "daily-dew-moisturizer",
+      "description": "A nourishing everyday moisturizer that helps skin feel supple and comfortably hydrated.",
       "images": [
         {
           "url": "/images/products/placeholder.svg",
@@ -377,8 +370,8 @@
       ],
       "status": "active",
       "categoryIds": [
-        "cat-3",
-        "cat-6"
+        "cat-1",
+        "cat-1-3"
       ],
       "tags": [
         "coffee",
@@ -389,16 +382,21 @@
         {
           "id": "var-4-1",
           "productId": "prod-4",
-          "sku": "PO-WHT-001",
-          "name": "Default",
-          "price": 3800,
-          "currency": "USD",
+          "sku": "DDM-50",
+          "name": "50 ml",
+          "price": 1150000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 40,
             "trackInventory": true,
             "allowBackorder": false
           },
-          "options": [],
+          "options": [
+            {
+              "name": "Size",
+              "value": "50 ml"
+            }
+          ],
           "images": []
         }
       ],
@@ -411,9 +409,9 @@
     },
     {
       "id": "prod-5",
-      "name": "Leather Passport Wallet",
-      "slug": "leather-passport-wallet",
-      "description": "Full-grain vegetable-tanned leather passport wallet. Fits a passport, 4 cards, and boarding passes. Ages beautifully over time.",
+      "name": "Everyday Glow Lip Balm",
+      "slug": "everyday-glow-lip-balm",
+      "description": "A smooth, conditioning balm that adds a soft hint of color and a natural-looking sheen.",
       "images": [
         {
           "url": "/images/products/placeholder.svg",
@@ -441,10 +439,10 @@
         {
           "id": "var-5-1",
           "productId": "prod-5",
-          "sku": "PW-TAN-001",
-          "name": "Tan",
-          "price": 5200,
-          "currency": "USD",
+          "sku": "EGLB-WN",
+          "name": "Warm Nude",
+          "price": 450000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 30,
             "trackInventory": true,
@@ -452,8 +450,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Tan"
+              "name": "Shade",
+              "value": "Warm Nude"
             }
           ],
           "images": []
@@ -461,10 +459,10 @@
         {
           "id": "var-5-2",
           "productId": "prod-5",
-          "sku": "PW-BRN-001",
-          "name": "Dark Brown",
-          "price": 5200,
-          "currency": "USD",
+          "sku": "EGLB-DC",
+          "name": "Deep Cocoa",
+          "price": 450000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 22,
             "trackInventory": true,
@@ -472,8 +470,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Dark Brown"
+              "name": "Shade",
+              "value": "Deep Cocoa"
             }
           ],
           "images": []
@@ -488,9 +486,9 @@
     },
     {
       "id": "prod-6",
-      "name": "Single-Origin Coffee Beans",
-      "slug": "single-origin-coffee-beans",
-      "description": "Ethically sourced single-origin beans from Colombia. Medium roast with notes of chocolate, caramel, and citrus. 12oz bag, whole bean.",
+      "name": "Botanical Scalp & Hair Oil",
+      "slug": "botanical-scalp-hair-oil",
+      "description": "A lightweight finishing oil that adds shine and smooths dry ends without weighing hair down.",
       "images": [
         {
           "url": "/images/products/placeholder.svg",
@@ -501,7 +499,7 @@
       ],
       "status": "active",
       "categoryIds": [
-        "cat-6"
+        "cat-3"
       ],
       "tags": [
         "coffee",
@@ -512,10 +510,10 @@
         {
           "id": "var-6-1",
           "productId": "prod-6",
-          "sku": "CB-12OZ-001",
-          "name": "12oz Bag",
-          "price": 1850,
-          "currency": "USD",
+          "sku": "BSHO-30",
+          "name": "30 ml",
+          "price": 950000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 200,
             "trackInventory": true,
@@ -524,7 +522,7 @@
           "options": [
             {
               "name": "Size",
-              "value": "12oz"
+              "value": "30 ml"
             }
           ],
           "images": []
@@ -532,10 +530,10 @@
         {
           "id": "var-6-2",
           "productId": "prod-6",
-          "sku": "CB-2LB-001",
-          "name": "2lb Bag",
-          "price": 3200,
-          "currency": "USD",
+          "sku": "BSHO-60",
+          "name": "60 ml",
+          "price": 1800000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 80,
             "trackInventory": true,
@@ -544,7 +542,7 @@
           "options": [
             {
               "name": "Size",
-              "value": "2lb"
+              "value": "60 ml"
             }
           ],
           "images": []
@@ -559,9 +557,9 @@
     },
     {
       "id": "prod-7",
-      "name": "Portable Bluetooth Speaker",
-      "slug": "portable-bluetooth-speaker",
-      "description": "Waterproof portable speaker with 360-degree sound and 12-hour battery life. Compact enough for any adventure.",
+      "name": "Radiant Mist Hydrating Toner",
+      "slug": "radiant-mist-hydrating-toner",
+      "description": "A refreshing facial mist that gives skin a quick boost of hydration before moisturizer or throughout the day.",
       "images": [
         {
           "url": "/images/products/placeholder.svg",
@@ -584,10 +582,10 @@
         {
           "id": "var-7-1",
           "productId": "prod-7",
-          "sku": "BS-BLK-001",
-          "name": "Charcoal",
-          "price": 5999,
-          "currency": "USD",
+          "sku": "RMHT-100",
+          "name": "100 ml",
+          "price": 750000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 45,
             "trackInventory": true,
@@ -595,8 +593,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Charcoal"
+              "name": "Size",
+              "value": "100 ml"
             }
           ],
           "images": []
@@ -604,10 +602,10 @@
         {
           "id": "var-7-2",
           "productId": "prod-7",
-          "sku": "BS-GRN-001",
-          "name": "Forest Green",
-          "price": 5999,
-          "currency": "USD",
+          "sku": "RMHT-200",
+          "name": "200 ml",
+          "price": 750000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 30,
             "trackInventory": true,
@@ -615,8 +613,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Forest Green"
+              "name": "Size",
+              "value": "200 ml"
             }
           ],
           "images": []
@@ -631,9 +629,9 @@
     },
     {
       "id": "prod-8",
-      "name": "Linen Throw Pillow",
-      "slug": "linen-throw-pillow",
-      "description": "Stonewashed French linen cover with a feather-down insert. 20x20 inches. Removable, machine-washable cover.",
+      "name": "Silkening Hand & Body Cream",
+      "slug": "silkening-hand-body-cream",
+      "description": "A rich but quick-absorbing cream to soften hands and dry areas with lasting comfort.",
       "images": [
         {
           "url": "/images/products/placeholder.svg",
@@ -644,7 +642,7 @@
       ],
       "status": "active",
       "categoryIds": [
-        "cat-3"
+        "cat-2"
       ],
       "tags": [
         "linen",
@@ -655,10 +653,10 @@
         {
           "id": "var-8-1",
           "productId": "prod-8",
-          "sku": "LP-NAT-001",
-          "name": "Natural",
-          "price": 3400,
-          "currency": "USD",
+          "sku": "SHBC-50",
+          "name": "50 ml",
+          "price": 750000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 60,
             "trackInventory": true,
@@ -666,8 +664,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Natural"
+              "name": "Size",
+              "value": "50 ml"
             }
           ],
           "images": []
@@ -675,10 +673,10 @@
         {
           "id": "var-8-2",
           "productId": "prod-8",
-          "sku": "LP-SLT-001",
-          "name": "Slate",
-          "price": 3400,
-          "currency": "USD",
+          "sku": "SHBC-100",
+          "name": "100 ml",
+          "price": 750000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 40,
             "trackInventory": true,
@@ -686,8 +684,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Slate"
+              "name": "Size",
+              "value": "100 ml"
             }
           ],
           "images": []
@@ -702,9 +700,9 @@
     },
     {
       "id": "prod-9",
-      "name": "Canvas Weekender Bag",
-      "slug": "canvas-weekender-bag",
-      "description": "Waxed canvas weekender with leather handles and brass hardware. Separate shoe compartment. Fits overhead bins.",
+      "name": "Glow Ritual Travel Skincare Set",
+      "slug": "glow-ritual-travel-skincare-set",
+      "description": "A travel-ready collection of skincare essentials for cleansing, hydrating, and moisturizing on the go.",
       "images": [
         {
           "url": "/images/products/placeholder.svg",
@@ -715,7 +713,7 @@
       ],
       "status": "active",
       "categoryIds": [
-        "cat-4"
+        "cat-1"
       ],
       "tags": [
         "bag",
@@ -726,10 +724,10 @@
         {
           "id": "var-9-1",
           "productId": "prod-9",
-          "sku": "WB-OLV-001",
-          "name": "Olive",
-          "price": 8900,
-          "currency": "USD",
+          "sku": "GRTSS-TR",
+          "name": "Travel Set",
+          "price": 2200000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 15,
             "trackInventory": true,
@@ -737,8 +735,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Olive"
+              "name": "Set",
+              "value": "Travel"
             }
           ],
           "images": []
@@ -753,9 +751,9 @@
     },
     {
       "id": "prod-10",
-      "name": "Hardcover Dot Grid Notebook",
-      "slug": "hardcover-dot-grid-notebook",
-      "description": "192 pages of 100gsm acid-free paper with a dot grid pattern. Lay-flat binding, ribbon bookmark, and elastic closure.",
+      "name": "Radiant Amber Eau de Parfum",
+      "slug": "radiant-amber-eau-de-parfum",
+      "description": "A warm, softly radiant fragrance with smooth amber notes for an elegant everyday signature.",
       "images": [
         {
           "url": "/images/products/placeholder.svg",
@@ -766,7 +764,7 @@
       ],
       "status": "active",
       "categoryIds": [
-        "cat-4"
+        "cat-6"
       ],
       "tags": [
         "notebook",
@@ -777,10 +775,10 @@
         {
           "id": "var-10-1",
           "productId": "prod-10",
-          "sku": "NB-BLK-A5",
-          "name": "Black / A5",
-          "price": 2200,
-          "currency": "USD",
+          "sku": "RAEDP-30",
+          "name": "30 ml",
+          "price": 2400000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 150,
             "trackInventory": true,
@@ -788,12 +786,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Black"
-            },
-            {
               "name": "Size",
-              "value": "A5"
+              "value": "30 ml"
             }
           ],
           "images": []
@@ -801,10 +795,10 @@
         {
           "id": "var-10-2",
           "productId": "prod-10",
-          "sku": "NB-NVY-A5",
-          "name": "Navy / A5",
-          "price": 2200,
-          "currency": "USD",
+          "sku": "RAEDP-50",
+          "name": "50 ml",
+          "price": 2400000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 90,
             "trackInventory": true,
@@ -812,12 +806,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Navy"
-            },
-            {
               "name": "Size",
-              "value": "A5"
+              "value": "50 ml"
             }
           ],
           "images": []
@@ -832,9 +822,9 @@
     },
     {
       "id": "prod-11",
-      "name": "Merino Wool Beanie",
-      "slug": "merino-wool-beanie",
-      "description": "Extra-fine merino wool beanie. Soft, breathable, and itch-free. Double-layered for warmth without bulk.",
+      "name": "Soft Hold Brow & Lash Gel",
+      "slug": "soft-hold-brow-lash-gel",
+      "description": "A clear, flexible gel that tidies brows and defines lashes for a polished everyday look.",
       "images": [
         {
           "url": "/images/products/placeholder.svg",
@@ -845,7 +835,6 @@
       ],
       "status": "active",
       "categoryIds": [
-        "cat-2",
         "cat-4"
       ],
       "tags": [
@@ -857,10 +846,10 @@
         {
           "id": "var-11-1",
           "productId": "prod-11",
-          "sku": "BN-CHR-001",
-          "name": "Charcoal",
-          "price": 3500,
-          "currency": "USD",
+          "sku": "SHBLG-CLR",
+          "name": "Clear",
+          "price": 650000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 75,
             "trackInventory": true,
@@ -868,8 +857,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Charcoal"
+              "name": "Shade",
+              "value": "Clear"
             }
           ],
           "images": []
@@ -877,10 +866,10 @@
         {
           "id": "var-11-2",
           "productId": "prod-11",
-          "sku": "BN-CRM-001",
-          "name": "Cream",
-          "price": 3500,
-          "currency": "USD",
+          "sku": "SHBLG-SBR",
+          "name": "Soft Brown",
+          "price": 650000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 55,
             "trackInventory": true,
@@ -888,8 +877,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Cream"
+              "name": "Shade",
+              "value": "Soft Brown"
             }
           ],
           "images": []
@@ -904,9 +893,9 @@
     },
     {
       "id": "prod-12",
-      "name": "Hand-Poured Soy Candle",
-      "slug": "hand-poured-soy-candle",
-      "description": "100% natural soy wax candle in a reusable ceramic vessel. 60-hour burn time. Available in three signature scents.",
+      "name": "Calm & Restore Overnight Mask",
+      "slug": "calm-restore-overnight-mask",
+      "description": "A comforting overnight mask that leaves skin feeling soft and replenished by morning.",
       "images": [
         {
           "url": "/images/products/placeholder.svg",
@@ -917,7 +906,8 @@
       ],
       "status": "active",
       "categoryIds": [
-        "cat-3"
+        "cat-1",
+        "cat-1-3"
       ],
       "tags": [
         "candle",
@@ -928,10 +918,10 @@
         {
           "id": "var-12-1",
           "productId": "prod-12",
-          "sku": "SC-CED-001",
-          "name": "Cedar & Sage",
-          "price": 2800,
-          "currency": "USD",
+          "sku": "CROM-BR",
+          "name": "Barrier Repair",
+          "price": 1350000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 90,
             "trackInventory": true,
@@ -939,8 +929,8 @@
           },
           "options": [
             {
-              "name": "Scent",
-              "value": "Cedar & Sage"
+              "name": "Formula",
+              "value": "Barrier Repair"
             }
           ],
           "images": []
@@ -948,10 +938,10 @@
         {
           "id": "var-12-2",
           "productId": "prod-12",
-          "sku": "SC-LVN-001",
-          "name": "Lavender & Eucalyptus",
-          "price": 2800,
-          "currency": "USD",
+          "sku": "CROM-CO",
+          "name": "Calming Oat",
+          "price": 1350000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 65,
             "trackInventory": true,
@@ -959,8 +949,8 @@
           },
           "options": [
             {
-              "name": "Scent",
-              "value": "Lavender & Eucalyptus"
+              "name": "Formula",
+              "value": "Calming Oat"
             }
           ],
           "images": []
@@ -968,10 +958,10 @@
         {
           "id": "var-12-3",
           "productId": "prod-12",
-          "sku": "SC-VNL-001",
-          "name": "Vanilla & Tonka",
-          "price": 2800,
-          "currency": "USD",
+          "sku": "CROM-HY",
+          "name": "Hydrating",
+          "price": 1350000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 80,
             "trackInventory": true,
@@ -979,8 +969,8 @@
           },
           "options": [
             {
-              "name": "Scent",
-              "value": "Vanilla & Tonka"
+              "name": "Formula",
+              "value": "Hydrating"
             }
           ],
           "images": []
@@ -995,9 +985,9 @@
     },
     {
       "id": "prod-13",
-      "name": "Japanese Matcha Set",
-      "slug": "japanese-matcha-set",
-      "description": "Traditional matcha preparation set with a ceramic bowl (chawan), bamboo whisk (chasen), and bamboo scoop (chashaku). Includes 30g ceremonial grade matcha.",
+      "name": "Golden Hour Shimmer Body Oil",
+      "slug": "golden-hour-shimmer-body-oil",
+      "description": "A lightweight body oil with a subtle glow that smooths skin and adds a luminous finish.",
       "images": [
         {
           "url": "/images/products/placeholder.svg",
@@ -1008,8 +998,7 @@
       ],
       "status": "active",
       "categoryIds": [
-        "cat-6",
-        "cat-3"
+        "cat-2"
       ],
       "tags": [
         "matcha",
@@ -1020,16 +1009,21 @@
         {
           "id": "var-13-1",
           "productId": "prod-13",
-          "sku": "MS-SET-001",
-          "name": "Default",
-          "price": 4200,
-          "currency": "USD",
+          "sku": "GHSBO-GG",
+          "name": "Golden Glow",
+          "price": 1150000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 20,
             "trackInventory": true,
             "allowBackorder": false
           },
-          "options": [],
+          "options": [
+            {
+              "name": "Finish",
+              "value": "Golden Glow"
+            }
+          ],
           "images": []
         }
       ],
@@ -1042,9 +1036,9 @@
     },
     {
       "id": "prod-14",
-      "name": "Wireless Charging Pad",
-      "slug": "wireless-charging-pad",
-      "description": "Slim 15W fast wireless charger compatible with all Qi-enabled devices. Non-slip silicone surface, LED indicator, and built-in safety features.",
+      "name": "Radiant Beam Facial Massage Tool",
+      "slug": "radiant-beam-facial-massage-tool",
+      "description": "A simple facial massage tool designed to support a relaxing, spa-like step in your skincare routine.",
       "images": [
         {
           "url": "/images/products/placeholder.svg",
@@ -1055,8 +1049,7 @@
       ],
       "status": "active",
       "categoryIds": [
-        "cat-1",
-        "cat-1-3"
+        "cat-1"
       ],
       "tags": [
         "wireless",
@@ -1067,10 +1060,10 @@
         {
           "id": "var-14-1",
           "productId": "prod-14",
-          "sku": "WC-BLK-001",
-          "name": "Black",
-          "price": 2499,
-          "currency": "USD",
+          "sku": "RBFMT-RQ",
+          "name": "Rose Quartz",
+          "price": 800000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 120,
             "trackInventory": true,
@@ -1078,8 +1071,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "Black"
+              "name": "Material",
+              "value": "Rose Quartz"
             }
           ],
           "images": []
@@ -1087,10 +1080,10 @@
         {
           "id": "var-14-2",
           "productId": "prod-14",
-          "sku": "WC-WHT-001",
-          "name": "White",
-          "price": 2499,
-          "currency": "USD",
+          "sku": "RBFMT-JD",
+          "name": "Jade",
+          "price": 800000,
+          "currency": "NGN",
           "inventory": {
             "quantity": 85,
             "trackInventory": true,
@@ -1098,8 +1091,8 @@
           },
           "options": [
             {
-              "name": "Color",
-              "value": "White"
+              "name": "Material",
+              "value": "Jade"
             }
           ],
           "images": []

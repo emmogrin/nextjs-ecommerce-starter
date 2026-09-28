@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="40" y1="24" x2="754" y2="770" gradientUnits="userSpaceOnUse"><stop stop-color="#F2EEE5"/><stop offset="1" stop-color="#D8DFD0"/></linearGradient>
+    <linearGradient id="bottle" x1="342" y1="270" x2="482" y2="622" gradientUnits="userSpaceOnUse"><stop stop-color="#D7B47D" stop-opacity=".76"/><stop offset="1" stop-color="#789079" stop-opacity=".9"/></linearGradient>
+  </defs>
+  <path fill="url(#bg)" d="M0 0h800v800H0z"/>
+  <path d="M0 145c135 34 212 92 263 173m537 263c-137-56-238-70-352-40" stroke="#FFFDF7" stroke-opacity=".6" stroke-width="3"/>
+  <ellipse cx="402" cy="649" rx="136" ry="27" fill="#5F6857" fill-opacity=".18"/>
+  <path d="M171 682c40-162 50-294 24-434m-2 328c-45-44-58-97-38-159 52 28 69 80 38 159Zm8-105c-1-60 22-106 70-139 11 65-13 110-70 139Zm-19-133c-41-38-54-83-38-136 47 30 60 76 38 136Z" fill="#8D9B7E"/>
+  <path d="M590 708c-8-161 11-301 69-419m-52 296c-37-45-43-95-16-150 44 34 51 84 16 150Zm17-112c11-57 41-96 91-117-1 62-31 101-91 117Zm-1-131c-32-45-33-91-3-138 37 39 38 85 3 138Z" fill="#6F806B"/>
+  <rect x="347" y="329" width="137" height="302" rx="25" fill="url(#bottle)" stroke="#FAF8F0" stroke-width="5"/>
+  <path d="M378 329v-67h75v67" fill="#B89E70" stroke="#FAF8F0" stroke-width="5"/>
+  <rect x="389" y="222" width="53" height="41" rx="9" fill="#586852"/>
+  <path d="M365 360h14v245h-14c-8 0-14-6-14-14V374c0-8 6-14 14-14Z" fill="#FFFDF7" fill-opacity=".28"/>
+  <rect x="364" y="432" width="103" height="101" rx="4" fill="#F5F1E8" fill-opacity=".94"/>
+  <path stroke="#879278" stroke-width="3" d="M382 462h67m-67 16h67m-49 16h31"/>
+  <circle cx="257" cy="232" r="60" fill="#D0B99C" fill-opacity=".45"/>
+</svg>
