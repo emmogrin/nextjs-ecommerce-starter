@@ -119,6 +119,16 @@ export default async function CheckoutSuccessPage({
         </CardContent>
       </Card>
 
+      <p className="mt-6 text-center text-sm text-muted-foreground">
+        Something wrong with this order?{" "}
+        <Link
+          href={`/contact?order=${encodeURIComponent(order.orderNumber)}`}
+          className="underline hover:text-foreground"
+        >
+          Report an issue
+        </Link>
+      </p>
+
       <div className="mt-8 flex justify-center gap-4">
         <Button asChild><Link href="/account/orders">View Orders</Link></Button>
         <Button variant="outline" asChild><Link href="/shop">Continue Shopping</Link></Button>

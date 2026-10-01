@@ -57,12 +57,20 @@ export default async function OrdersPage() {
                     </span>
                   ))}
                 </div>
-                <Link
-                  href={`/checkout/success?order_id=${encodeURIComponent(order.id)}`}
-                  className="mt-4 inline-block text-sm underline underline-offset-4"
-                >
-                  View order
-                </Link>
+                <div className="mt-4 flex items-center gap-4 text-sm">
+                  <Link
+                    href={`/checkout/success?order_id=${encodeURIComponent(order.id)}`}
+                    className="inline-block underline underline-offset-4"
+                  >
+                    View order
+                  </Link>
+                  <Link
+                    href={`/contact?order=${encodeURIComponent(order.orderNumber)}`}
+                    className="inline-block underline underline-offset-4"
+                  >
+                    Report an issue
+                  </Link>
+                </div>
               </CardContent>
             </Card>
           ))}

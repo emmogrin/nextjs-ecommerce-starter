@@ -2,6 +2,7 @@ import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { AnnouncementBar } from "@/components/layout/announcement-bar"
 import { CartDrawer } from "@/components/cart/cart-drawer"
+import { CustomerCare } from "@/components/layout/customer-care"
 import { BackToTop } from "@/components/layout/back-to-top"
 import { categoryRepository } from "@/lib/repositories"
 
@@ -29,6 +30,7 @@ export default async function StoreLayout({
       </main>
       <Footer />
       <CartDrawer />
+      <CustomerCare />
       <BackToTop />
     </>
   )

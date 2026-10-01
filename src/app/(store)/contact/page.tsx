@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -13,36 +13,68 @@ import { siteConfig } from "@/lib/config"
 import { contactFormSchema } from "@/lib/validators"
 
 export default function ContactPage() {
-  const [loading, setLoading] = useState(false)
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle")
   const [form, setForm] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
+    orderNumber: "",
   })
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const order = params.get("order")
+    if (order) {
+      setForm((current) => ({ ...current, orderNumber: order }))
+    }
+  }, [])
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }))
+    setForm((current) => ({ ...current, [e.target.name]: e.target.value }))
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
 
-    const result = contactFormSchema.safeParse(form)
+    const result = contactFormSchema.safeParse({
+      name: form.name,
+      email: form.email,
+      subject: form.subject,
+      message: form.message,
+    })
     if (!result.success) {
       toast.error(result.error.issues[0].message)
       return
     }
 
-    setLoading(true)
-    // In production, send this to the store's support email via an API route or form service.
-    setTimeout(() => {
-      toast.success("Message sent! We'll get back to you soon.")
-      setForm({ name: "", email: "", subject: "", message: "" })
-      setLoading(false)
-    }, 500)
+    setStatus("submitting")
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          subject: form.subject,
+          message: form.message,
+          ...(form.orderNumber ? { orderNumber: form.orderNumber } : {}),
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error("Submission failed")
+      }
+
+      setStatus("success")
+      setForm({ name: "", email: "", subject: "", message: "", orderNumber: "" })
+    } catch {
+      setStatus("error")
+      toast.error("Your message could not be sent. Please try again.")
+    }
   }
 
   return (
@@ -53,7 +85,6 @@ export default function ContactPage() {
       />
 
       <div className="mt-12 grid gap-8 lg:grid-cols-3">
-        {/* Contact info cards */}
         <div className="space-y-4 lg:col-span-1">
           <Card>
             <CardHeader className="pb-3">
@@ -73,9 +104,27 @@ export default function ContactPage() {
           </Card>
         </div>
 
-        {/* Contact form */}
         <Card className="lg:col-span-2">
           <CardContent className="pt-6">
+            {status === "success" && (
+              <div
+                role="status"
+                className="mb-6 rounded-md border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800"
+              >
+                Your message has been received. Thank you for contacting Radiant
+                Identity.
+              </div>
+            )}
+            {status === "error" && (
+              <div
+                role="alert"
+                className="mb-6 rounded-md border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive"
+              >
+                Your message could not be sent. Please try again, or email us
+                directly at {siteConfig.contact.email}.
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
@@ -117,6 +166,20 @@ export default function ContactPage() {
                 />
               </div>
               <div className="space-y-2">
+                <Label htmlFor="orderNumber">Order number (optional)</Label>
+                <Input
+                  id="orderNumber"
+                  name="orderNumber"
+                  placeholder="e.g. RI-20260930-000123"
+                  value={form.orderNumber}
+                  onChange={handleChange}
+                  maxLength={100}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Include your order number if this is about a specific order.
+                </p>
+              </div>
+              <div className="space-y-2">
                 <Label htmlFor="message">Message</Label>
                 <Textarea
                   id="message"
@@ -129,8 +192,8 @@ export default function ContactPage() {
                   aria-required="true"
                 />
               </div>
-              <Button type="submit" className="w-full sm:w-auto" disabled={loading}>
-                {loading ? "Sending..." : "Send Message"}
+              <Button type="submit" className="w-full sm:w-auto" disabled={status === "submitting"}>
+                {status === "submitting" ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </CardContent>

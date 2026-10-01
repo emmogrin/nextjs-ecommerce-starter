@@ -144,7 +144,7 @@ export function Header({ categories = [] }: HeaderProps) {
         </Sheet>
 
         {/* Logo */}
-        <Link href="/" className="text-lg font-semibold tracking-[0.035em] text-[#342a24] sm:text-xl">
+        <Link href="/" className="whitespace-nowrap text-lg font-semibold tracking-[0.035em] text-[#342a24] sm:text-xl">
           {siteConfig.name}
         </Link>
 
@@ -204,6 +204,9 @@ export function Header({ categories = [] }: HeaderProps) {
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => router.push("/account/settings")}>
                   Settings
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push("/contact")}>
+                  Customer Care
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={async () => { await logout(); router.push("/") }}>
