@@ -86,6 +86,15 @@ export default async function AdminOrderDetailPage({
         </CardContent>
       </Card>
 
+      {order.notes ? (
+        <Card>
+          <CardHeader><CardTitle>Delivery notes</CardTitle></CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground whitespace-pre-wrap">{order.notes}</p>
+          </CardContent>
+        </Card>
+      ) : null}
+
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader><CardTitle>Shipping address</CardTitle></CardHeader>

@@ -43,6 +43,7 @@ type OrderRow = {
   total_kobo: number
   shipping_address: Record<string, unknown>
   billing_address: Record<string, unknown> | null
+  notes: string | null
   created_at: string
   updated_at: string
   order_items: OrderItemRow[]
@@ -110,6 +111,7 @@ function mapOrder(
       : undefined,
     customerEmail: row.customer_email,
     customerName: `${row.customer_first_name} ${row.customer_last_name}`,
+    notes: row.notes,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   }
@@ -190,6 +192,7 @@ export const supabaseOrderRepository: OrderRepository = {
       p_items: input.items.map(({ variantId, quantity }) => ({ variantId, quantity })),
       p_shipping_address: input.shippingAddress,
       p_billing_address: input.billingAddress ?? null,
+      p_notes: input.notes ?? null,
     })
     if (error) throw error
 

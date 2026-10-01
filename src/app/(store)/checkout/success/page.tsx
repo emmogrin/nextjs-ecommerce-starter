@@ -105,9 +105,17 @@ export default async function CheckoutSuccessPage({
               {address.firstName} {address.lastName}<br />
               {address.line1}{address.line2 ? `, ${address.line2}` : ""}<br />
               {address.city}, {address.state} {address.postalCode}<br />
-              {address.country}
+              {address.country}{address.phone ? <><br />{address.phone}</> : null}
             </p>
           </div>
+          {order.notes && (
+            <div className="text-sm">
+              <p className="font-medium">Delivery notes</p>
+              <p className="mt-1 text-muted-foreground whitespace-pre-wrap">
+                {order.notes}
+              </p>
+            </div>
+          )}
         </CardContent>
       </Card>
 

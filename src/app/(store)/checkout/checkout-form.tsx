@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
+import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useCartStore } from "@/store/cart"
 import { formatPrice } from "@/lib/utils"
@@ -33,6 +34,8 @@ export function CheckoutForm({ email }: CheckoutFormProps) {
     state: "",
     postalCode: "",
     country: "Nigeria",
+    phone: "",
+    notes: "",
   })
 
   useEffect(() => setMounted(true), [])
@@ -63,7 +66,9 @@ export function CheckoutForm({ email }: CheckoutFormProps) {
 
   const displayedSubtotal = getSubtotal()
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
     setForm((current) => ({ ...current, [event.target.name]: event.target.value }))
   }
 
@@ -87,7 +92,9 @@ export function CheckoutForm({ email }: CheckoutFormProps) {
             state: form.state,
             postalCode: form.postalCode,
             country: form.country,
+            phone: form.phone,
           },
+          ...(form.notes ? { notes: form.notes } : {}),
         }),
       })
 
@@ -175,6 +182,44 @@ export function CheckoutForm({ email }: CheckoutFormProps) {
                   <Input id="postalCode" name="postalCode" value={form.postalCode} onChange={handleChange} required />
                 </div>
               </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone number</Label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  value={form.phone}
+                  onChange={handleChange}
+                  minLength={7}
+                  maxLength={20}
+                  autoComplete="tel"
+                  required
+                />
+                <p className="text-xs text-muted-foreground">
+                  Used by our delivery team to contact you about your order.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Delivery Notes</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <Label htmlFor="notes">Delivery notes (optional)</Label>
+              <Textarea
+                id="notes"
+                name="notes"
+                value={form.notes}
+                onChange={handleChange}
+                maxLength={500}
+                rows={3}
+                placeholder="e.g. gate directions, building name, or preferred contact instructions"
+              />
+              <p className="text-xs text-muted-foreground">
+                {form.notes.length}/500 characters
+              </p>
             </CardContent>
           </Card>
 

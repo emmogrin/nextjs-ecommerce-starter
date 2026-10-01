@@ -40,6 +40,25 @@ export interface BlogPost {
   updatedAt?: string
 }
 
+// --- Blog Articles (database-backed CMS) ---
+
+export type BlogStatus = "draft" | "published"
+
+export interface BlogArticle {
+  id: string
+  title: string
+  slug: string
+  excerpt: string
+  body: string
+  author: string
+  category: string | null
+  coverImage?: ProductImage
+  status: BlogStatus
+  publishedAt: string | null
+  createdAt: string
+  updatedAt: string
+}
+
 // --- Product ---
 
 export type ProductStatus = "draft" | "active" | "archived"
@@ -182,6 +201,7 @@ export interface Order {
   billingAddress?: Address
   customerEmail: string
   customerName: string
+  notes?: string | null
   createdAt: string
   updatedAt: string
 }
@@ -372,6 +392,12 @@ export interface BrandRepository {
   getById(id: string): Promise<Brand | null>
 }
 
+export interface BlogArticleRepository {
+  list(params?: PaginationParams): Promise<PaginatedResult<BlogArticle>>
+  getBySlug(slug: string): Promise<BlogArticle | null>
+  getById(id: string): Promise<BlogArticle | null>
+}
+
 export interface OrderRepository {
   list(
     userId?: string,
@@ -391,4 +417,5 @@ export interface CreateOrderInput {
   items: Array<{ variantId: string; quantity: number }>
   shippingAddress: Omit<Address, "id" | "type" | "isDefault">
   billingAddress?: Omit<Address, "id" | "type" | "isDefault">
+  notes?: string
 }

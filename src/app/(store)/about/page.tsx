@@ -4,85 +4,63 @@ import Link from "next/link"
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Learn about the Next.js Ecommerce Starter template and Epic Design Labs, the team behind it.",
+    "Radiant Identity is a curated beauty and skincare destination helping you discover products that celebrate your natural glow.",
 }
 
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold tracking-tight">About This Starter</h1>
+      <h1 className="text-3xl font-bold tracking-tight">Our Story</h1>
       <div className="mt-8 space-y-6 text-muted-foreground">
         <p>
-          The Next.js Ecommerce Starter is a free, open-source template designed
-          to give developers and businesses a production-ready foundation for
-          building modern online stores. It&apos;s built with Next.js, Tailwind CSS,
-          and shadcn/ui — and it&apos;s designed to connect to any checkout or
-          payment system.
+          Radiant Identity began with a simple belief: beauty should feel like
+          an act of self-discovery, not a standard to live up to. We curate
+          skincare, body care, hair care, makeup, and fragrance with one goal —
+          helping you reveal the radiance that is already yours.
         </p>
         <p>
-          Whether you&apos;re a developer looking for a clean starting point or a
-          business that needs a custom storefront, this template covers the
-          essentials: product catalog, cart, checkout, search, authentication,
-          wishlist, and more — all built with accessibility, SEO, and
-          performance in mind.
+          Every product in our storefront is chosen thoughtfully. We look for
+          formulas that nurture, textures that feel indulgent, and brands that
+          care about the details — so that each ritual, from your morning
+          cleanse to your evening wind-down, becomes a moment worth savoring.
         </p>
 
         <h2 className="!mt-12 text-xl font-semibold text-foreground">
-          Built by Epic Design Labs
+          Thoughtful Curation
         </h2>
         <p>
-          This starter was created by{" "}
-          <a
-            href="https://epicdesignlabs.com"
-            target="_blank"
-            rel="noopener"
-            className="underline hover:text-foreground"
+          We don&apos;t believe in overwhelming choice. Our catalog is edited
+          with intention, so you can explore with confidence and find pieces
+          that suit your skin, your hair, and your rhythm.
+        </p>
+
+        <h2 className="!mt-12 text-xl font-semibold text-foreground">
+          Beauty for Every Identity
+        </h2>
+        <p>
+          Radiance looks different on everyone, and that&apos;s the point. Our
+          collection celebrates the full spectrum of beauty — designed to help
+          you look, feel, and live radiant on your own terms.
+        </p>
+
+        <h2 className="!mt-12 text-xl font-semibold text-foreground">
+          Your Ritual, Elevated
+        </h2>
+        <p>
+          Whether you&apos;re building your first routine or refining a
+          long-loved one, we&apos;re here to make every step feel effortless
+          and indulgent. Explore the collection and find your next favorite
+          ritual.
+        </p>
+
+        <div className="!mt-12">
+          <Link
+            href="/shop"
+            className="text-sm font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground"
           >
-            Epic Design Labs
-          </a>
-          , a design and development studio that helps businesses build
-          high-performing ecommerce experiences. We work with brands of all
-          sizes to design, develop, and optimize online stores that convert.
-        </p>
-
-        <h2 className="!mt-12 text-xl font-semibold text-foreground">
-          What&apos;s Included
-        </h2>
-        <ul className="list-inside list-disc space-y-2">
-          <li>30+ pages with responsive layouts</li>
-          <li>Product catalog with categories, subcategories, and brands</li>
-          <li>Shopping cart with slide-out drawer</li>
-          <li>Pluggable checkout provider (connect any payment system)</li>
-          <li>Search modal with instant results</li>
-          <li>Wishlist and recently viewed products</li>
-          <li>Authentication with protected routes</li>
-          <li>Full SEO setup (metadata, structured data, sitemap)</li>
-          <li>Accessibility compliant (WCAG best practices)</li>
-          <li>Internationalization ready (next-intl with EN/ES)</li>
-          <li>Theme variables for easy rebranding</li>
-        </ul>
-
-        <h2 className="!mt-12 text-xl font-semibold text-foreground">
-          Need a Developer?
-        </h2>
-        <p>
-          This template is free to use, modify, and deploy. If you need help
-          customizing it, integrating a payment provider, or building something
-          more complex, our team is here to help.{" "}
-          <Link href="/contact" className="underline hover:text-foreground">
-            Get in touch
-          </Link>{" "}
-          or visit{" "}
-          <a
-            href="https://epicdesignlabs.com"
-            target="_blank"
-            rel="noopener"
-            className="underline hover:text-foreground"
-          >
-            epicdesignlabs.com
-          </a>
-          .
-        </p>
+            Explore the collection
+          </Link>
+        </div>
       </div>
     </div>
   )

@@ -1,12 +1,13 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
-import { Boxes, LayoutDashboard, Package, Tag, Users } from "lucide-react"
+import { Boxes, LayoutDashboard, Newspaper, Package, Tag, Users } from "lucide-react"
 import { createClient } from "@/lib/supabase/server"
 
 const adminNav = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Products", href: "/admin/products", icon: Boxes },
   { name: "Brands", href: "/admin/brands", icon: Tag },
+  { name: "Blog", href: "/admin/blog", icon: Newspaper },
   { name: "Orders", href: "/admin/orders", icon: Package },
   { name: "Customers", href: "/admin/customers", icon: Users },
 ]

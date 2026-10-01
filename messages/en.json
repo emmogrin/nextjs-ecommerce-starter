@@ -178,7 +178,7 @@
     "contactInfo": "Contact Information",
     "shippingAddress": "Shipping Address",
     "payment": "Payment",
-    "paymentNote": "This is a demo store. No real payment will be processed. In production, this section connects to your payment provider (e.g., Throttle).",
+    "paymentNote": "This is a demo store. No real payment will be processed.",
     "orderSummary": "Order Summary",
     "fillRequired": "Please fill in all required fields",
     "orderPlaced": "Order placed successfully!",

@@ -7,8 +7,9 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { PageHeader } from "@/components/ui/page-header"
-import { Mail, Globe, GitFork } from "lucide-react"
+import { Mail } from "lucide-react"
 import { toast } from "sonner"
+import { siteConfig } from "@/lib/config"
 import { contactFormSchema } from "@/lib/validators"
 
 export default function ContactPage() {
@@ -36,7 +37,7 @@ export default function ContactPage() {
     }
 
     setLoading(true)
-    // In production, send to support@epicdesignlabs.com via API route or form service
+    // In production, send this to the store's support email via an API route or form service.
     setTimeout(() => {
       toast.success("Message sent! We'll get back to you soon.")
       setForm({ name: "", email: "", subject: "", message: "" })
@@ -48,7 +49,7 @@ export default function ContactPage() {
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
       <PageHeader
         title="Contact Us"
-        description="Have a question about the starter template, need help with customization, or want to work with our team? We'd love to hear from you."
+        description="Have a question about an order, a product, or Radiant Identity? We'd love to hear from you."
       />
 
       <div className="mt-12 grid gap-8 lg:grid-cols-3">
@@ -63,46 +64,10 @@ export default function ContactPage() {
             </CardHeader>
             <CardContent>
               <a
-                href="mailto:support@epicdesignlabs.com"
+                href={`mailto:${siteConfig.contact.email}`}
                 className="text-sm text-muted-foreground hover:text-foreground hover:underline"
               >
-                support@epicdesignlabs.com
-              </a>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center gap-2 text-sm">
-                <Globe className="h-4 w-4" />
-                Website
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <a
-                href="https://epicdesignlabs.com"
-                target="_blank"
-                rel="noopener"
-                className="text-sm text-muted-foreground hover:text-foreground hover:underline"
-              >
-                epicdesignlabs.com
-              </a>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center gap-2 text-sm">
-                <GitFork className="h-4 w-4" />
-                GitHub
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <a
-                href="https://github.com/Epic-Design-Labs/nextjs-ecommerce-starter"
-                target="_blank"
-                rel="noopener"
-                className="text-sm text-muted-foreground hover:text-foreground hover:underline"
-              >
-                View on GitHub
+                {siteConfig.contact.email}
               </a>
             </CardContent>
           </Card>
@@ -144,7 +109,7 @@ export default function ContactPage() {
                 <Input
                   id="subject"
                   name="subject"
-                  placeholder="Template question, customization help, or project inquiry"
+                  placeholder="How can we help?"
                   value={form.subject}
                   onChange={handleChange}
                   required
@@ -156,7 +121,7 @@ export default function ContactPage() {
                 <Textarea
                   id="message"
                   name="message"
-                  placeholder="Tell us about your project or question..."
+                  placeholder="Tell us how we can help..."
                   rows={5}
                   value={form.message}
                   onChange={handleChange}

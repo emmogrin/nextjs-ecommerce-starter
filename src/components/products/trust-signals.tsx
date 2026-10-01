@@ -1,4 +1,4 @@
-import { Truck, RotateCcw, Shield } from "lucide-react"
+import { MessageCircle, Shield, Truck } from "lucide-react"
 import { formatPrice } from "@/lib/utils"
 import { siteConfig } from "@/lib/config"
 
@@ -10,8 +10,8 @@ export function TrustSignals() {
         <span>Free delivery on orders over {formatPrice(siteConfig.freeShippingThreshold)}</span>
       </div>
       <div className="flex items-center gap-3 text-sm text-muted-foreground">
-        <RotateCcw className="h-4 w-4" />
-        <span>30-day hassle-free returns</span>
+        <MessageCircle className="h-4 w-4" />
+        <span>Order issues? We are here to help</span>
       </div>
       <div className="flex items-center gap-3 text-sm text-muted-foreground">
         <Shield className="h-4 w-4" />

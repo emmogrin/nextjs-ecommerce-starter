@@ -8,7 +8,7 @@ export const siteConfig = {
   name: "Radiant Identity",
   tagline: "Reveal your radiant identity.",
   description:
-    "A free, production-ready Next.js ecommerce starter template built with Tailwind CSS and shadcn/ui. Responsive, accessible, SEO optimized, and ready to connect to any checkout system. Built by Epic Design Labs.",
+    "Radiant Identity is a curated destination for premium skincare and beauty essentials — thoughtfully selected to help you look, feel, and live radiant.",
 
   // Announcement bar (set to "" to hide)
   announcement: "",

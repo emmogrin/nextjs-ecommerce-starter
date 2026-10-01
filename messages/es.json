@@ -178,7 +178,7 @@
     "contactInfo": "Información de Contacto",
     "shippingAddress": "Dirección de Envío",
     "payment": "Pago",
-    "paymentNote": "Esta es una tienda de demostración. No se procesará ningún pago real. En producción, esta sección se conecta a tu proveedor de pagos (ej. Throttle).",
+    "paymentNote": "Esta es una tienda de demostración. No se procesará ningún pago real.",
     "orderSummary": "Resumen del Pedido",
     "fillRequired": "Por favor completa todos los campos requeridos",
     "orderPlaced": "¡Pedido realizado exitosamente!",

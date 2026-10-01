@@ -5,14 +5,34 @@ import { createClient } from "@/lib/supabase/server"
 import { supabaseOrderRepository } from "@/lib/repositories/supabase-order-repository"
 import type { CreateOrderInput } from "@/types"
 
-const createOrderSchema = z.object({
-  items: z.array(z.object({
-    variantId: z.string().trim().min(1),
-    quantity: z.number().int().min(1).max(99),
-  })).min(1).max(50),
-  shippingAddress: addressSchema,
-  billingAddress: addressSchema.optional(),
-}).strict()
+const shippingAddressSchema = addressSchema.extend({
+  phone: z
+    .string()
+    .trim()
+    .min(7, "Phone number must be at least 7 characters.")
+    .max(20, "Phone number must be 20 characters or fewer."),
+})
+
+const createOrderSchema = z
+  .object({
+    items: z
+      .array(
+        z.object({
+          variantId: z.string().trim().min(1),
+          quantity: z.number().int().min(1).max(99),
+        })
+      )
+      .min(1)
+      .max(50),
+    shippingAddress: shippingAddressSchema,
+    billingAddress: addressSchema.optional(),
+    notes: z
+      .string()
+      .trim()
+      .max(500, "Delivery notes must be 500 characters or fewer.")
+      .optional(),
+  })
+  .strict()
 
 export async function POST(request: Request) {
   const client = await createClient()
@@ -42,6 +62,7 @@ export async function POST(request: Request) {
     items: parsed.data.items,
     shippingAddress: parsed.data.shippingAddress,
     billingAddress: parsed.data.billingAddress,
+    notes: parsed.data.notes || undefined,
   }
 
   try {

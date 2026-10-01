@@ -1,50 +1,52 @@
 import type { Metadata } from "next"
+import { siteConfig } from "@/lib/config"
 
 export const metadata: Metadata = {
-  title: "Returns & Refunds",
-  description: "Our return and refund policy. Easy 30-day returns.",
+  title: "Complaints & Order Issues",
+  description: "How to report an issue with your Radiant Identity order.",
 }
 
-export default function ReturnsPolicyPage() {
+export default function ComplaintsPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold tracking-tight">
-        Returns & Refunds
+        Complaints &amp; Order Issues
       </h1>
       <div className="mt-8 space-y-6 text-muted-foreground">
-        <h2 className="text-xl font-semibold text-foreground">
-          30-Day Return Policy
-        </h2>
         <p>
-          We want you to be completely satisfied with your purchase. If you're
-          not happy with your order, you can return it within 30 days of
-          delivery for a full refund.
+          We want every order to arrive correctly and in good condition. If
+          something is not right, we are here to help.
         </p>
 
         <h2 className="text-xl font-semibold text-foreground">
-          Return Conditions
+          Report an Issue
         </h2>
-        <ul className="list-inside list-disc space-y-2">
-          <li>Items must be unused and in their original packaging</li>
-          <li>Tags must be attached</li>
-          <li>Sale items are final sale and cannot be returned</li>
-          <li>Gift cards are non-refundable</li>
-        </ul>
+        <p>
+          If your order is wrong, damaged, incomplete, or otherwise not as
+          described, please contact us and include your order number and a
+          description of the issue.
+        </p>
 
         <h2 className="text-xl font-semibold text-foreground">
-          How to Return
+          What We Review
         </h2>
-        <ol className="list-inside list-decimal space-y-2">
-          <li>Log into your account and go to Order History</li>
-          <li>Select the order and items you wish to return</li>
-          <li>Print the prepaid return label</li>
-          <li>Pack items securely and drop off at any shipping location</li>
-        </ol>
-
-        <h2 className="text-xl font-semibold text-foreground">Refunds</h2>
         <p>
-          Refunds are processed within 5-7 business days of receiving your
-          return. The refund will be credited to your original payment method.
+          Reported issues such as a wrong item, a damaged item, a missing item,
+          or a materially incorrect order are reviewed on a case-by-case basis.
+          We will respond with the next steps based on the circumstances of your
+          order.
+        </p>
+
+        <h2 className="text-xl font-semibold text-foreground">Contact</h2>
+        <p>
+          To report an issue, email us at{" "}
+          <a
+            href={`mailto:${siteConfig.contact.email}`}
+            className="underline hover:text-foreground"
+          >
+            {siteConfig.contact.email}
+          </a>
+          .
         </p>
       </div>
     </div>

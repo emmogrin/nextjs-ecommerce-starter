@@ -1,56 +1,61 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { formatPrice } from "@/lib/utils"
+import { siteConfig } from "@/lib/config"
 
 export const metadata: Metadata = {
   title: "FAQ",
-  description: "Frequently asked questions about orders, shipping, returns, and more.",
+  description: "Frequently asked questions about Radiant Identity.",
 }
 
 const faqs = [
   {
-    question: "How long does shipping take?",
+    question: "What is Radiant Identity?",
     answer:
-      "Standard shipping typically takes 5-7 business days. Express shipping is available at checkout and delivers within 2-3 business days.",
+      "Radiant Identity is a curated beauty storefront featuring skincare, body care, hair care, makeup, and fragrance essentials thoughtfully selected to help you look, feel, and live radiant.",
   },
   {
-    question: "What is your return policy?",
+    question: "How do I shop or place an order?",
     answer:
-      "We offer a 30-day return policy on all items. Products must be in their original condition with tags attached. Visit our returns page for more details.",
+      "Browse the store, add products to your cart, and proceed to checkout. You will be asked to sign in so we can record your order and its delivery details.",
   },
   {
-    question: "Do you ship internationally?",
-    answer:
-      "Yes, we ship to most countries worldwide. International shipping rates and delivery times vary by destination. You can see the exact cost at checkout.",
+    question: "What currency is used?",
+    answer: "All prices are listed in Nigerian Naira (₦).",
   },
   {
-    question: "How can I track my order?",
+    question: "Is checkout currently live?",
     answer:
-      "Once your order ships, you'll receive a confirmation email with a tracking number. You can also track your order from your account dashboard.",
+      "Checkout is currently in demo mode. You can place an order, but no real payment is taken. Orders are recorded without a charge while real payment processing is still being set up.",
   },
   {
-    question: "What payment methods do you accept?",
+    question: "How does delivery work?",
     answer:
-      "We accept all major credit cards (Visa, Mastercard, American Express), PayPal, and Apple Pay. All transactions are secured with SSL encryption.",
+      "Delivery is available within Nigeria. Delivery charges and timelines are confirmed based on your order and delivery location.",
   },
   {
-    question: "How do I contact customer support?",
-    answer:
-      "You can reach us via our contact page, email us at support@store.com, or call (555) 123-4567. Our support team is available Monday through Friday, 9am to 5pm EST.",
+    question: "When is delivery free?",
+    answer: `Orders over ${formatPrice(siteConfig.freeShippingThreshold)} qualify for free delivery.`,
   },
   {
-    question: "Can I change or cancel my order?",
+    question: "What if there is an issue with my order?",
     answer:
-      "You can modify or cancel your order within 1 hour of placing it. After that, please contact our support team and we'll do our best to accommodate your request.",
+      "If your order is wrong, damaged, incomplete, or not as described, please contact us with your order number and a description of the issue. Reported issues are reviewed and handled according to the circumstances.",
   },
   {
-    question: "Do you offer gift cards?",
+    question: "How can I contact Radiant Identity?",
+    answer: `You can email us at ${siteConfig.contact.email} or reach us through our contact page.`,
+  },
+  {
+    question: "Are products from different beauty brands featured?",
     answer:
-      "Yes! Digital gift cards are available in denominations of $25, $50, $100, and $200. They're delivered instantly via email and never expire.",
+      "Radiant Identity curates beauty and skincare products across skincare, body care, hair care, makeup, and fragrance categories.",
   },
 ]
 
@@ -61,8 +66,8 @@ export default function FAQPage() {
         Frequently Asked Questions
       </h1>
       <p className="mt-4 text-muted-foreground">
-        Find answers to common questions about our products, shipping, and
-        policies.
+        Find answers to common questions about Radiant Identity, ordering,
+        delivery, and more.
       </p>
 
       <Accordion className="mt-8">
@@ -81,15 +86,14 @@ export default function FAQPage() {
       <div className="mt-12 rounded-lg border bg-neutral-50 p-6 text-center">
         <h2 className="text-lg font-semibold">Still have questions?</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Can&apos;t find what you&apos;re looking for? Our support team is
-          happy to help.
+          We are happy to help with any other questions.
         </p>
-        <a
+        <Link
           href="/contact"
           className="mt-4 inline-block text-sm font-medium underline hover:text-foreground"
         >
           Contact Support
-        </a>
+        </Link>
       </div>
     </div>
   )

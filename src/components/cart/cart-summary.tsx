@@ -2,15 +2,14 @@
 
 import { formatPrice } from "@/lib/utils"
 import { Separator } from "@/components/ui/separator"
-import { siteConfig } from "@/lib/config"
 
 interface CartSummaryProps {
   subtotal: number
 }
 
 export function CartSummary({ subtotal }: CartSummaryProps) {
-  const shipping = subtotal >= siteConfig.freeShippingThreshold ? 0 : 599
-  const tax = Math.round(subtotal * siteConfig.taxRate)
+  const shipping = 0
+  const tax = 0
   const total = subtotal + shipping + tax
 
   return (
@@ -32,11 +31,6 @@ export function CartSummary({ subtotal }: CartSummaryProps) {
         <span>Total</span>
         <span>{formatPrice(total)}</span>
       </div>
-      {subtotal > 0 && subtotal < siteConfig.freeShippingThreshold && (
-        <p className="text-xs text-muted-foreground">
-          Add {formatPrice(siteConfig.freeShippingThreshold - subtotal)} more for free shipping
-        </p>
-      )}
     </div>
   )
 }

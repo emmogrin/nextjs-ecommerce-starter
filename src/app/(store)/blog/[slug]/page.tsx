@@ -21,11 +21,6 @@ interface PostProps {
   params: Promise<{ slug: string }>
 }
 
-export async function generateStaticParams() {
-  const { items } = await blogRepository.list({ page: 1, limit: 10_000 })
-  return items.map((p) => ({ slug: p.slug }))
-}
-
 export async function generateMetadata({
   params,
 }: PostProps): Promise<Metadata> {
@@ -42,9 +37,9 @@ export async function generateMetadata({
       description: post.excerpt,
       type: "article",
       url: `${siteConfig.url}/blog/${post.slug}`,
-      publishedTime: post.publishedAt,
+      ...(post.publishedAt ? { publishedTime: post.publishedAt } : {}),
       authors: [post.author],
-      tags: post.tags,
+      ...(post.category ? { tags: [post.category] } : {}),
       images: post.coverImage
         ? [{ url: post.coverImage.url, alt: post.coverImage.alt }]
         : [],
@@ -62,10 +57,10 @@ export default async function BlogPostPage({ params }: PostProps) {
     "@type": "Article",
     headline: post.title,
     description: post.excerpt,
-    datePublished: post.publishedAt,
-    dateModified: post.updatedAt ?? post.publishedAt,
+    ...(post.publishedAt ? { datePublished: post.publishedAt } : {}),
+    dateModified: post.updatedAt,
     author: { "@type": "Person", name: post.author },
-    image: post.coverImage?.url,
+    ...(post.coverImage?.url ? { image: post.coverImage.url } : {}),
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,
@@ -103,10 +98,12 @@ export default async function BlogPostPage({ params }: PostProps) {
       <article className="mt-6">
         <header>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <time dateTime={post.publishedAt}>
-              {formatDate(post.publishedAt)}
-            </time>
-            <span>·</span>
+            {post.publishedAt && (
+              <time dateTime={post.publishedAt}>
+                {formatDate(post.publishedAt)}
+              </time>
+            )}
+            {post.publishedAt && <span>·</span>}
             <span>{post.author}</span>
           </div>
           <h1 className="mt-3 text-4xl font-bold tracking-tight">
@@ -115,7 +112,6 @@ export default async function BlogPostPage({ params }: PostProps) {
           <p className="mt-4 text-lg text-muted-foreground">{post.excerpt}</p>
         </header>
 
-        {/* 16:10 cover */}
         <div className="relative mt-8 aspect-[16/10] overflow-hidden rounded-lg bg-neutral-100">
           <Image
             src={post.coverImage?.url ?? PLACEHOLDER_IMAGE}
@@ -132,15 +128,13 @@ export default async function BlogPostPage({ params }: PostProps) {
           dangerouslySetInnerHTML={{ __html: post.body }}
         />
 
-        {post.tags.length > 0 && (
+        {post.category && (
           <footer className="mt-12 border-t pt-6">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-sm font-medium">Tags:</span>
-              {post.tags.map((tag) => (
-                <Badge key={tag} variant="secondary" className="text-xs">
-                  {tag}
-                </Badge>
-              ))}
+              <span className="text-sm font-medium">Category:</span>
+              <Badge variant="secondary" className="text-xs">
+                {post.category}
+              </Badge>
             </div>
           </footer>
         )}

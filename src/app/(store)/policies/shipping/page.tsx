@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
+import { formatPrice } from "@/lib/utils"
+import { siteConfig } from "@/lib/config"
 
 export const metadata: Metadata = {
   title: "Delivery Policy",
-  description: "Learn about our delivery options, rates, and estimated arrival times.",
+  description: "How Radiant Identity handles delivery across Nigeria.",
 }
 
 export default function ShippingPolicyPage() {
@@ -10,39 +12,49 @@ export default function ShippingPolicyPage() {
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold tracking-tight">Delivery Policy</h1>
       <div className="mt-8 space-y-6 text-muted-foreground">
-        <h2 className="text-xl font-semibold text-foreground">
-          Domestic Shipping
-        </h2>
-        <ul className="list-inside list-disc space-y-2">
-          <li>Standard Shipping (5-7 business days): $5.99</li>
-          <li>Express Shipping (2-3 business days): $12.99</li>
-          <li>Overnight Shipping (1 business day): $24.99</li>
-          <li>Free shipping on all orders over $75</li>
-        </ul>
-
-        <h2 className="text-xl font-semibold text-foreground">
-          International Shipping
-        </h2>
         <p>
-          We ship to most countries worldwide. International shipping rates are
-          calculated at checkout based on destination and package weight.
-          Delivery typically takes 7-14 business days.
+          Radiant Identity delivers within Nigeria. Prices are listed in
+          Nigerian Naira (₦), and delivery is confirmed according to your order
+          and location.
         </p>
 
         <h2 className="text-xl font-semibold text-foreground">
-          Order Processing
+          Free Delivery
         </h2>
         <p>
-          Orders placed before 2:00 PM EST on business days are processed the
-          same day. Orders placed after 2:00 PM EST or on weekends will be
-          processed the next business day.
+          Orders over {formatPrice(siteConfig.freeShippingThreshold)} qualify
+          for free delivery.
         </p>
 
-        <h2 className="text-xl font-semibold text-foreground">Tracking</h2>
+        <h2 className="text-xl font-semibold text-foreground">
+          Delivery Charges and Timelines
+        </h2>
         <p>
-          You will receive a shipping confirmation email with a tracking number
-          once your order has shipped. You can also track your order from your
-          account dashboard.
+          Delivery charges and timelines are confirmed according to your order
+          and delivery location. Final delivery details are confirmed with you
+          for your order rather than applied as a single fixed rate.
+        </p>
+
+        <h2 className="text-xl font-semibold text-foreground">
+          Delivery Area
+        </h2>
+        <p>
+          We currently deliver within Nigeria. International delivery is not
+          currently available.
+        </p>
+
+        <h2 className="text-xl font-semibold text-foreground">
+          Questions About Your Order
+        </h2>
+        <p>
+          For questions about a specific order, contact us at{" "}
+          <a
+            href={`mailto:${siteConfig.contact.email}`}
+            className="underline hover:text-foreground"
+          >
+            {siteConfig.contact.email}
+          </a>
+          .
         </p>
       </div>
     </div>

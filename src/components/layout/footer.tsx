@@ -57,7 +57,7 @@ const footerLinks = {
   ],
   legal: [
     { name: "Delivery Policy", href: "/policies/shipping" },
-    { name: "Returns & Refunds", href: "/policies/returns" },
+    { name: "Complaints & Order Issues", href: "/policies/returns" },
     { name: "Privacy Policy", href: "/policies/privacy" },
     { name: "Terms of Service", href: "/policies/terms" },
   ],
