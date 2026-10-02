@@ -91,13 +91,6 @@ export default function LoginPage() {
           {loading ? "Signing in..." : "Sign In"}
         </Button>
       </form>
-      <div className="mt-4 rounded-md bg-neutral-50 p-3">
-        <p className="text-xs text-muted-foreground">
-          <strong>Demo accounts:</strong><br />
-          admin@example.com / password123<br />
-          demo@example.com / password123
-        </p>
-      </div>
     </AuthCardLayout>
   )
 }

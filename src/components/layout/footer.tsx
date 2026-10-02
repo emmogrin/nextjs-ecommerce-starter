@@ -63,6 +63,14 @@ const footerLinks = {
   ],
 }
 
+const socialLinks = [
+  { label: "Twitter", href: siteConfig.social.twitter, Icon: IconTwitter },
+  { label: "Instagram", href: siteConfig.social.instagram, Icon: IconInstagram },
+  { label: "Facebook", href: siteConfig.social.facebook, Icon: IconFacebook },
+  { label: "YouTube", href: siteConfig.social.youtube, Icon: IconYouTube },
+  { label: "TikTok", href: siteConfig.social.tiktok, Icon: IconTikTok },
+].filter((link) => link.href)
+
 export function Footer() {
   return (
     <footer className="border-t bg-white">
@@ -148,21 +156,18 @@ export function Footer() {
             </a>
           </p>
           <div className="flex items-center gap-4">
-            <a href="#" className="text-muted-foreground transition-colors hover:text-foreground" aria-label="Twitter">
-              <IconTwitter className="h-4 w-4" />
-            </a>
-            <a href="#" className="text-muted-foreground transition-colors hover:text-foreground" aria-label="Instagram">
-              <IconInstagram className="h-4 w-4" />
-            </a>
-            <a href="#" className="text-muted-foreground transition-colors hover:text-foreground" aria-label="Facebook">
-              <IconFacebook className="h-4 w-4" />
-            </a>
-            <a href="#" className="text-muted-foreground transition-colors hover:text-foreground" aria-label="YouTube">
-              <IconYouTube className="h-4 w-4" />
-            </a>
-            <a href="#" className="text-muted-foreground transition-colors hover:text-foreground" aria-label="TikTok">
-              <IconTikTok className="h-4 w-4" />
-            </a>
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors hover:text-foreground"
+                aria-label={link.label}
+              >
+                <link.Icon className="h-4 w-4" />
+              </a>
+            ))}
           </div>
         </div>
       </div>

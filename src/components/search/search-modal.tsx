@@ -10,12 +10,12 @@ import { PLACEHOLDER_IMAGE } from "@/lib/constants"
 import type { Product } from "@/types"
 
 const popularSearches = [
-  "Headphones",
-  "Coffee",
-  "Leather",
-  "Wireless",
-  "Organic",
-  "Candle",
+  "Cleanser",
+  "Serum",
+  "Moisturizer",
+  "Toner",
+  "Hair Oil",
+  "Lip Balm",
 ]
 
 interface SearchModalProps {
