@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"
 import { useState } from "react"
 import {
   Boxes,
+  FolderTree,
   LayoutDashboard,
   Menu,
   Newspaper,
@@ -25,6 +26,7 @@ import { cn } from "@/lib/utils"
 const adminNav = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Products", href: "/admin/products", icon: Boxes },
+  { name: "Categories", href: "/admin/categories", icon: FolderTree },
   { name: "Brands", href: "/admin/brands", icon: Tag },
   { name: "Blog", href: "/admin/blog", icon: Newspaper },
   { name: "Orders", href: "/admin/orders", icon: Package },
