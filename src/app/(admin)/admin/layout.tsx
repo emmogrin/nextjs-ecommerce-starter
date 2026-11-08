@@ -1,16 +1,7 @@
 import Link from "next/link"
 import { redirect } from "next/navigation"
-import { Boxes, LayoutDashboard, Newspaper, Package, Tag, Users } from "lucide-react"
+import { AdminDesktopNavigation, AdminMobileNavigation } from "./admin-navigation"
 import { createClient } from "@/lib/supabase/server"
-
-const adminNav = [
-  { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { name: "Products", href: "/admin/products", icon: Boxes },
-  { name: "Brands", href: "/admin/brands", icon: Tag },
-  { name: "Blog", href: "/admin/blog", icon: Newspaper },
-  { name: "Orders", href: "/admin/orders", icon: Package },
-  { name: "Customers", href: "/admin/customers", icon: Users },
-]
 
 export default async function AdminLayout({
   children,
@@ -46,38 +37,12 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar */}
-      <aside className="hidden w-64 border-r bg-neutral-50 lg:block">
-        <div className="flex h-16 items-center border-b px-6">
-          <Link href="/admin" className="text-lg font-semibold">
-            Admin
-          </Link>
-        </div>
-        <nav className="space-y-1 p-4">
-          {adminNav.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-white hover:text-foreground"
-            >
-              <item.icon className="h-4 w-4" />
-              {item.name}
-            </Link>
-          ))}
-        </nav>
-        <div className="mt-auto border-t p-4">
-          <Link
-            href="/"
-            className="text-sm text-muted-foreground hover:text-foreground"
-          >
-            &larr; Back to Store
-          </Link>
-        </div>
-      </aside>
-
-      {/* Main */}
-      <main className="flex-1 p-6 lg:p-8">{children}</main>
+    <div className="min-h-screen lg:flex">
+      <AdminDesktopNavigation />
+      <div className="min-w-0 flex-1">
+        <AdminMobileNavigation />
+        <main className="p-4 sm:p-6 lg:p-8">{children}</main>
+      </div>
     </div>
   )
 }
