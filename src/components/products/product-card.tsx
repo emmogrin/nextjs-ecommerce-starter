@@ -1,16 +1,19 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useSyncExternalStore } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Heart } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { StarRating } from "@/components/products/star-rating"
 import { formatPrice } from "@/lib/utils"
 import { PLACEHOLDER_IMAGE } from "@/lib/constants"
 import { useWishlistStore } from "@/store/wishlist"
 import { toast } from "sonner"
 import type { Product } from "@/types"
+
+const subscribeToNothing = () => () => {}
+const getClientSnapshot = () => true
+const getServerSnapshot = () => false
 
 interface ProductCardProps {
   product: Product
@@ -19,10 +22,9 @@ interface ProductCardProps {
 
 export function ProductCard({ product, featured = false }: ProductCardProps) {
   const defaultVariant = product.variants[0]
-  if (!defaultVariant) return null
 
-  const price = defaultVariant.price
-  const compareAtPrice = defaultVariant.compareAtPrice
+  const price = defaultVariant?.price ?? 0
+  const compareAtPrice = defaultVariant?.compareAtPrice
   const isOnSale = compareAtPrice && compareAtPrice > price
   const image = product.images[0]
   const isPlaceholderImage = !image?.url || image.url === PLACEHOLDER_IMAGE
@@ -31,9 +33,14 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
   const addItem = useWishlistStore((s) => s.addItem)
   const removeItem = useWishlistStore((s) => s.removeItem)
 
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
+  const mounted = useSyncExternalStore(
+    subscribeToNothing,
+    getClientSnapshot,
+    getServerSnapshot
+  )
   const isWishlisted = mounted && wishlistItems.some((i) => i.productId === product.id)
+
+  if (!defaultVariant) return null
 
   function handleWishlist(e: React.MouseEvent) {
     e.preventDefault()
@@ -79,8 +86,7 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
           )}
         </div>
         <div className="mt-3">
-          <StarRating rating={product.rating} reviewCount={product.reviewCount} size="sm" />
-          <h3 className="mt-1 line-clamp-2 min-h-10 text-sm font-medium leading-5 tracking-tight text-[#342a24] group-hover:underline sm:text-base">
+          <h3 className="mt-2 line-clamp-2 min-h-10 text-sm font-medium leading-5 tracking-tight text-[#342a24] group-hover:underline sm:text-base">
             {product.name}
           </h3>
           <div className="mt-1 flex items-baseline gap-2">

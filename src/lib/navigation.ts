@@ -35,6 +35,7 @@ export const infoLinks: NavItem[] = [
 ]
 
 export const mobileMenuSections: NavSection[] = [
+  { label: "", items: [{ name: "Home", href: "/" }] },
   { label: "Shop", items: shopLinks },
   { label: "Account", items: accountLinks },
   { label: "Info", items: infoLinks },

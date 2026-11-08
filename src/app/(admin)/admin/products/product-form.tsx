@@ -1,13 +1,14 @@
 "use client"
 
 import Link from "next/link"
-import { useActionState } from "react"
+import { useActionState, useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import type { Brand, Category, Product } from "@/types"
 import type { AdminProductImage } from "@/lib/repositories/supabase-admin-product-repository"
+import { optimizeImagesForUpload } from "@/lib/image-processing"
 import { ProductImageFields } from "./product-image-fields"
 import { ProductVariantFields } from "./product-variant-fields"
 import {
@@ -32,14 +33,69 @@ export function ProductForm({ brands, categories, product, images = [] }: Produc
     FormData
   >(action, {})
 
+  const submitInFlight = useRef(false)
+  const [processing, setProcessing] = useState(false)
+  const [processingProgress, setProcessingProgress] = useState({ completed: 0, total: 0 })
+  const [imageError, setImageError] = useState("")
+
+  useEffect(() => {
+    if (isPending) submitInFlight.current = false
+  }, [isPending])
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (submitInFlight.current || isPending || processing) return
+    submitInFlight.current = true
+    setImageError("")
+
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    const selectedFiles = formData.getAll("images").filter(
+      (entry): entry is File => entry instanceof File && entry.size > 0
+    )
+
+    if (selectedFiles.length === 0) {
+      formAction(formData)
+      return
+    }
+
+    setProcessing(true)
+    setProcessingProgress({ completed: 0, total: selectedFiles.length })
+    try {
+      const optimizedFiles = await optimizeImagesForUpload(
+        selectedFiles,
+        1600,
+        (completed) => setProcessingProgress({ completed, total: selectedFiles.length })
+      )
+      if (optimizedFiles.reduce((total, file) => total + file.size, 0) > 10 * 1024 * 1024) {
+        setImageError("The optimized images still exceed 10 MB total. Remove an image or choose smaller files, then retry.")
+        submitInFlight.current = false
+        return
+      }
+      formData.delete("images")
+      optimizedFiles.forEach((file) => formData.append("images", file, file.name))
+      formAction(formData)
+    } catch {
+      setImageError("Images could not be prepared in this browser. Please retry or choose different files.")
+      submitInFlight.current = false
+    } finally {
+      setProcessing(false)
+    }
+  }
+
   return (
-    <form action={formAction} className="mt-8 max-w-3xl space-y-6">
+    <form onSubmit={handleSubmit} className="mt-8 max-w-3xl space-y-6">
       {state.error && (
         <div
           role="alert"
           className="rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive"
         >
           {state.error}
+        </div>
+      )}
+      {imageError && (
+        <div role="alert" className="rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+          {imageError}
         </div>
       )}
 
@@ -139,8 +195,21 @@ export function ProductForm({ brands, categories, product, images = [] }: Produc
 
       <ProductImageFields images={images} />
 
+      {processing && (
+        <div role="status" aria-live="polite" className="space-y-2 text-sm text-muted-foreground">
+          <p>Preparing images: {processingProgress.completed} of {processingProgress.total}</p>
+          <progress className="h-2 w-full accent-foreground" max={processingProgress.total} value={processingProgress.completed} />
+        </div>
+      )}
+      {isPending && (
+        <div role="status" aria-live="polite" className="space-y-2 text-sm text-muted-foreground">
+          <p>Uploading images and saving product. Keep this page open.</p>
+          <progress className="h-2 w-full accent-foreground" aria-label="Uploading images and saving product" />
+        </div>
+      )}
+
       <div className="flex flex-wrap gap-3">
-        <Button type="submit" disabled={isPending || brands.length === 0}>
+        <Button type="submit" disabled={isPending || processing || brands.length === 0}>
           {isPending ? "Saving…" : product ? "Save changes" : "Create product"}
         </Button>
         <Button variant="outline" asChild>

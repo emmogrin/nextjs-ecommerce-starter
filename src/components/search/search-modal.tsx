@@ -1,15 +1,14 @@
 "use client"
 
-import { useState, useEffect, useCallback, useRef, type KeyboardEvent as ReactKeyboardEvent } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Search, X, ArrowRight } from "lucide-react"
-import { StarRating } from "@/components/products/star-rating"
 import { formatPrice } from "@/lib/utils"
 import { PLACEHOLDER_IMAGE } from "@/lib/constants"
 import type { Product } from "@/types"
 
-const popularSearches = [
+const suggestedSearches = [
   "Cleanser",
   "Serum",
   "Moisturizer",
@@ -178,11 +177,6 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         <p className="text-sm font-medium truncate">
                           {product.name}
                         </p>
-                        <StarRating
-                          rating={product.rating}
-                          reviewCount={product.reviewCount}
-                          size="sm"
-                        />
                       </div>
                       <span className="shrink-0 text-sm font-medium">
                         {variant && formatPrice(variant.price, variant.currency)}
@@ -222,10 +216,10 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
             {!hasQuery && (
               <div className="p-4">
                 <p className="mb-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  Popular Searches
+                  Explore by product type
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {popularSearches.map((term) => (
+                  {suggestedSearches.map((term) => (
                     <button
                       key={term}
                       onClick={() => setQuery(term)}

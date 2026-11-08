@@ -15,11 +15,15 @@ import { cn } from "@/lib/utils"
 import { shopLinks, mobileMenuSections } from "@/lib/navigation"
 import { siteConfig } from "@/lib/config"
 import { useTranslations } from "next-intl"
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useSyncExternalStore } from "react"
 import type { Category } from "@/types"
 import { useCartStore } from "@/store/cart"
 import { useAuthStore } from "@/store/auth"
 import { useRouter } from "next/navigation"
+
+const subscribeToNothing = () => () => {}
+const getClientSnapshot = () => true
+const getServerSnapshot = () => false
 
 interface HeaderProps {
   /** All categories (top-level + subcategories) from the repository layer */
@@ -40,8 +44,11 @@ export function Header({ categories = [] }: HeaderProps) {
   const logout = useAuthStore((s) => s.logout)
   const router = useRouter()
 
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
+  const mounted = useSyncExternalStore(
+    subscribeToNothing,
+    getClientSnapshot,
+    getServerSnapshot
+  )
   const itemCount = mounted
     ? cartItems.reduce((total, item) => total + item.quantity, 0)
     : 0
@@ -85,9 +92,11 @@ export function Header({ categories = [] }: HeaderProps) {
               {mobileMenuSections.map((section, sectionIdx) => (
                 <div key={section.label}>
                   {sectionIdx > 0 && <div className="my-4 border-t" />}
-                  <p className="mb-2 mt-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                    {section.label}
-                  </p>
+                  {section.label && (
+                    <p className="mb-2 mt-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                      {section.label}
+                    </p>
+                  )}
                   <div className="ml-3">
                   {section.items.map((item) => {
                     const slug = item.href.replace("/", "")

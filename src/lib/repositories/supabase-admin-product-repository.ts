@@ -170,28 +170,49 @@ async function uploadProductImages(
   if (lastImageError) throw lastImageError
   const firstSortOrder = (lastImage?.sort_order ?? -1) + 1
   const uploadedPaths: string[] = []
-  const records = []
+  const records = new Array<{
+    id: string
+    product_id: string
+    variant_id: null
+    storage_path: string
+    alt: string
+    sort_order: number
+  }>(images.length)
+  const uploadErrors: unknown[] = []
+  let nextIndex = 0
 
-  try {
-    for (const [index, image] of images.entries()) {
-      const extension = allowedImageTypes[image.file.type]
-      const path = `${productId}/${crypto.randomUUID()}.${extension}`
-      const { error } = await bucket.upload(path, image.file, {
-        contentType: image.file.type,
-        upsert: false,
-      })
-      if (error) throw error
-      uploadedPaths.push(path)
-      records.push({
-        id: `img-${crypto.randomUUID()}`,
-        product_id: productId,
-        variant_id: null,
-        storage_path: path,
-        alt: image.alt || image.file.name.replace(/\.[^.]+$/, ""),
-        sort_order: firstSortOrder + index,
-      })
+  const workers = Array.from({ length: Math.min(3, images.length) }, async () => {
+    while (true) {
+      const index = nextIndex++
+      if (index >= images.length) return
+      const image = images[index]
+      try {
+        const extension = allowedImageTypes[image.file.type]
+        const path = `${productId}/${crypto.randomUUID()}.${extension}`
+        const { error } = await bucket.upload(path, image.file, {
+          contentType: image.file.type,
+          upsert: false,
+        })
+        if (error) throw error
+        uploadedPaths.push(path)
+        records[index] = {
+          id: `img-${crypto.randomUUID()}`,
+          product_id: productId,
+          variant_id: null,
+          storage_path: path,
+          alt: image.alt || image.file.name.replace(/\.[^.]+$/, ""),
+          sort_order: firstSortOrder + index,
+        }
+      } catch (error) {
+        uploadErrors.push(error)
+        return
+      }
     }
+  })
 
+  await Promise.all(workers)
+  try {
+    if (uploadErrors.length > 0) throw uploadErrors[0]
     const { error } = await client.from("product_images").insert(records)
     if (error) throw error
   } catch (error) {

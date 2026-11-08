@@ -42,8 +42,6 @@ type ProductRow = {
   body: string | null
   status: Product["status"]
   tags: string[]
-  rating: number
-  review_count: number
   featured: boolean
   created_at: string
   updated_at: string
@@ -118,8 +116,6 @@ export function mapProduct(
       .map((category) => category.category_id),
     tags: row.tags ?? [],
     variants,
-    rating: Number(row.rating),
-    reviewCount: row.review_count,
     featured: row.featured,
     createdAt: row.created_at,
     updatedAt: row.updated_at,

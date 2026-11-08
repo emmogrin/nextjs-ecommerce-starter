@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useSyncExternalStore } from "react"
 import Link from "next/link"
 import { ShoppingBag, Heart } from "lucide-react"
 import { toast } from "sonner"
@@ -8,7 +8,6 @@ import { useCartStore } from "@/store/cart"
 import { useWishlistStore } from "@/store/wishlist"
 import { useRecentlyViewedStore } from "@/store/recently-viewed"
 import { RecentlyViewed } from "@/components/products/recently-viewed"
-import { StarRating } from "@/components/products/star-rating"
 import { TrustSignals } from "@/components/products/trust-signals"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
@@ -28,6 +27,10 @@ import { ProductGrid } from "@/components/products/product-grid"
 import { formatPrice } from "@/lib/utils"
 import { breadcrumbJsonLd } from "@/lib/structured-data"
 import type { Product, Brand, Category } from "@/types"
+
+const subscribeToNothing = () => () => {}
+const getClientSnapshot = () => true
+const getServerSnapshot = () => false
 
 interface ProductDetailViewProps {
   product: Product
@@ -58,8 +61,11 @@ export function ProductDetailView({
 
   const addRecentlyViewed = useRecentlyViewedStore((s) => s.addItem)
 
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
+  const mounted = useSyncExternalStore(
+    subscribeToNothing,
+    getClientSnapshot,
+    getServerSnapshot
+  )
   const isWishlisted = mounted && wishlistItems.some((i) => i.productId === product.id)
 
   // Track recently viewed
@@ -72,7 +78,14 @@ export function ProductDetailView({
       imageUrl: product.images[0]?.url ?? "",
       imageAlt: product.images[0]?.alt ?? product.name,
     })
-  }, [product.id])
+  }, [
+    addRecentlyViewed,
+    product.id,
+    product.slug,
+    product.name,
+    product.variants,
+    product.images,
+  ])
 
   const selectedVariant = product.variants.find(
     (v) => v.id === selectedVariantId
@@ -138,11 +151,6 @@ export function ProductDetailView({
     image: product.images.map((img) => img.url),
     sku: selectedVariant.sku,
     brand: brand ? { "@type": "Brand", name: brand.name } : undefined,
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: product.rating,
-      reviewCount: product.reviewCount,
-    },
     offers: {
       "@type": "Offer",
       price: (selectedVariant.price / 100).toFixed(2),
@@ -192,11 +200,7 @@ export function ProductDetailView({
 
         {/* Info */}
         <div className="flex flex-col">
-          <div>
-            <StarRating rating={product.rating} reviewCount={product.reviewCount} />
-          </div>
-
-          <h1 className="mt-2 font-heading text-2xl font-semibold tracking-tight text-[#342a24] sm:text-3xl">
+          <h1 className="font-heading text-2xl font-semibold tracking-tight text-[#342a24] sm:text-3xl">
             {product.name}
           </h1>
 

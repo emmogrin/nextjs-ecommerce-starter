@@ -23,13 +23,6 @@ export function ProductImageFields({
   const [removedIds, setRemovedIds] = useState<string[]>([])
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
   const [fileError, setFileError] = useState("")
-  const [previewUrls, setPreviewUrls] = useState<string[]>([])
-
-  useEffect(() => {
-    const urls = selectedFiles.map((file) => URL.createObjectURL(file))
-    setPreviewUrls(urls)
-    return () => urls.forEach((url) => URL.revokeObjectURL(url))
-  }, [selectedFiles])
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(event.target.files ?? [])
@@ -51,12 +44,6 @@ export function ProductImageFields({
       setSelectedFiles([])
       return
     }
-    if (files.reduce((total, file) => total + file.size, 0) > maxFileSize) {
-      setFileError("Keep the total image upload to 10 MB or less per save.")
-      event.target.value = ""
-      setSelectedFiles([])
-      return
-    }
     setFileError("")
     setSelectedFiles(files)
   }
@@ -66,7 +53,7 @@ export function ProductImageFields({
       <div>
         <h2 className="text-sm font-medium">Product images</h2>
         <p className="text-xs text-muted-foreground">
-          JPEG, PNG, WebP, or AVIF; up to 10 MB each.
+          JPEG, PNG, WebP, or AVIF; up to 10 MB each and 20 images per save. Images are optimized before upload.
         </p>
       </div>
 
@@ -127,20 +114,7 @@ export function ProductImageFields({
         <div className="space-y-3">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {selectedFiles.map((file, index) => (
-              <div key={`${file.name}-${index}`} className="space-y-1">
-                <div className="relative aspect-square overflow-hidden rounded-md border bg-muted">
-                  {previewUrls[index] && (
-                    <Image
-                      src={previewUrls[index]}
-                      alt={file.name}
-                      fill
-                      unoptimized
-                      className="object-cover"
-                    />
-                  )}
-                </div>
-                <p className="truncate text-xs text-muted-foreground">{file.name}</p>
-              </div>
+              <SelectedImagePreview key={`${file.name}-${index}`} file={file} />
             ))}
           </div>
           <div className="space-y-2">
@@ -150,5 +124,19 @@ export function ProductImageFields({
         </div>
       )}
     </section>
+  )
+}
+
+function SelectedImagePreview({ file }: { file: File }) {
+  const [previewUrl] = useState(() => URL.createObjectURL(file))
+  useEffect(() => () => URL.revokeObjectURL(previewUrl), [previewUrl])
+
+  return (
+    <div className="space-y-1">
+      <div className="relative aspect-square overflow-hidden rounded-md border bg-muted">
+        <Image src={previewUrl} alt={file.name} fill unoptimized className="object-cover" />
+      </div>
+      <p className="truncate text-xs text-muted-foreground">{file.name}</p>
+    </div>
   )
 }

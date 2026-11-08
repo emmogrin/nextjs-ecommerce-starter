@@ -110,8 +110,6 @@ export interface Product {
   categoryIds: string[]
   tags: string[]
   variants: ProductVariant[]
-  rating: number
-  reviewCount: number
   featured: boolean
   createdAt: string
   updatedAt: string
@@ -253,19 +251,6 @@ export interface Payment {
   currency: string
   transactionId?: string
   metadata?: Record<string, string>
-}
-
-// --- Review (placeholder for v2) ---
-
-export interface Review {
-  id: string
-  productId: string
-  userId: string
-  rating: number // 1-5
-  title: string
-  content: string
-  verified: boolean
-  createdAt: string
 }
 
 // ============================================================================

@@ -2,13 +2,14 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useActionState, useState } from "react"
+import { useActionState, useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { slugify } from "@/lib/utils"
 import type { AdminCategory } from "@/lib/repositories/supabase-admin-category-repository"
+import { optimizeImageForUpload } from "@/lib/image-processing"
 import {
   createCategoryAction,
   updateCategoryAction,
@@ -16,6 +17,7 @@ import {
 } from "./actions"
 
 type ParentCategoryOption = Pick<AdminCategory, "id" | "name">
+const allowedImageTypes = new Set(["image/jpeg", "image/png", "image/webp", "image/avif"])
 
 export function CategoryForm({
   category,
@@ -36,17 +38,71 @@ export function CategoryForm({
   const [slugEdited, setSlugEdited] = useState(false)
   const [parentId, setParentId] = useState(category?.parentId ?? "")
   const [removeImage, setRemoveImage] = useState(false)
+  const [processing, setProcessing] = useState(false)
+  const [imageError, setImageError] = useState("")
+  const submitInFlight = useRef(false)
   const isTopLevel = parentId === ""
   const imageIsRequired = isTopLevel && !category?.imageUrl && !removeImage
 
+  useEffect(() => {
+    if (isPending) submitInFlight.current = false
+  }, [isPending])
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (submitInFlight.current || isPending || processing) return
+    submitInFlight.current = true
+    setImageError("")
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    const selectedImage = formData.get("image")
+
+    if (!(selectedImage instanceof File) || selectedImage.size === 0) {
+      formAction(formData)
+      return
+    }
+    if (!allowedImageTypes.has(selectedImage.type)) {
+      setImageError("Use a JPEG, PNG, WebP, or AVIF category image.")
+      submitInFlight.current = false
+      return
+    }
+    if (selectedImage.size > 10 * 1024 * 1024) {
+      setImageError("Category images must be 10 MB or smaller.")
+      submitInFlight.current = false
+      return
+    }
+
+    setProcessing(true)
+    try {
+      const optimizedImage = await optimizeImageForUpload(selectedImage, 1800)
+      if (optimizedImage.size > 10 * 1024 * 1024) {
+        setImageError("The category image is still over 10 MB. Choose a smaller file and retry.")
+        submitInFlight.current = false
+        return
+      }
+      formData.set("image", optimizedImage, optimizedImage.name)
+      formAction(formData)
+    } catch {
+      setImageError("The category image could not be prepared. Please retry or choose another file.")
+      submitInFlight.current = false
+    } finally {
+      setProcessing(false)
+    }
+  }
+
   return (
-    <form action={formAction} className="mt-8 max-w-3xl space-y-6">
+    <form onSubmit={handleSubmit} className="mt-8 max-w-3xl space-y-6">
       {state.error && (
         <div
           role="alert"
           className="rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive"
         >
           {state.error}
+        </div>
+      )}
+      {imageError && (
+        <div role="alert" className="rounded-md border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+          {imageError}
         </div>
       )}
 
@@ -213,8 +269,14 @@ export function CategoryForm({
       </label>
 
       <div className="flex flex-wrap gap-3">
-        <Button type="submit" disabled={isPending}>
-          {isPending ? "Saving…" : category ? "Save changes" : "Create category"}
+        {(processing || isPending) && (
+          <div role="status" aria-live="polite" className="w-full space-y-2 text-sm text-muted-foreground">
+            <p>{processing ? "Preparing category image…" : "Uploading image and saving category. Keep this page open."}</p>
+            <progress className="h-2 w-full accent-foreground" aria-label={processing ? "Preparing category image" : "Uploading image and saving category"} />
+          </div>
+        )}
+        <Button type="submit" disabled={isPending || processing}>
+          {processing ? "Preparing image…" : isPending ? "Saving…" : category ? "Save changes" : "Create category"}
         </Button>
         <Button variant="outline" asChild>
           <Link href="/admin/categories">Cancel</Link>
